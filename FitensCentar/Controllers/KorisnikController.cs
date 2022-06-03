@@ -19,7 +19,7 @@ namespace FitensCentar.Controllers
                 prezimeKorisnika = "Suknovic", uloga = 0
 
             };
-                return View();
+                return View(korisnik);
         }
     }
 }

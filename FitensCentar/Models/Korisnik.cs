@@ -7,13 +7,13 @@ namespace FitensCentar.Models
 {
     public class Korisnik
     {
-        public string username { get; set; }
-        public string password { get; set; }
-        public string imeKorisnika { get; set; }
-        public string prezimeKorisnika { get; set; }
-        public Pol pol { get; set; }
-        public string emailKorisnika { get; set; }
-        public DateTime datumRodjenja  { get; set; }
-        public Uloga uloga { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string ImeKorisnika { get; set; }
+        public string PrezimeKorisnika { get; set; }
+        public Pol Pol { get; set; }
+        public string EmailKorisnika { get; set; }
+        public DateTime DatumRodjenja  { get; set; }
+        public Uloga Uloga { get; set; }
     }
 }

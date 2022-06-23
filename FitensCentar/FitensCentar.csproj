@@ -125,8 +125,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FitnesCentar.cs" />
+    <Compile Include="Models\GrupniTrening.cs" />
+    <Compile Include="Models\Komentar.cs" />
     <Compile Include="Models\Korisnik.cs" />
     <Compile Include="Models\Pol.cs" />
+    <Compile Include="Models\TipTreninga.cs" />
     <Compile Include="Models\Uloga.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

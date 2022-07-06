@@ -14,9 +14,9 @@ namespace FitensCentar.Controllers
         {
             var korisnik = new Korisnik()
             {
-                Username = "Nenad", DatumRodjenja = DateTime.Now, Password = "aezakmi",
-                EmailKorisnika = "nenad.suknovic@gmail.com", ImeKorisnika = "Nenad", Pol = 0,
-                PrezimeKorisnika = "Suknovic", Uloga = 0
+                Username = "Nenad", DatumRodjenja = "10.01.1997.", Password = "aezakmi",
+                EmailKorisnika = "nenad.suknovic@gmail.com", ImeKorisnika = "Nenad", _Pol = 0,
+                PrezimeKorisnika = "Suknovic", _Uloga = 0
 
             };
                 return View(korisnik);

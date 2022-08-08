@@ -27,13 +27,13 @@ namespace FitensCentar.Models
 
         }
 
-        public Korisnik(string username, string password, string imeKorisnika, string prezimeKorisnika, Pol Pol, string emailKorisnika, string datumRodjenja)
+        public Korisnik(string username, string password, string imeKorisnika, string prezimeKorisnika, Pol pol, string emailKorisnika, string datumRodjenja)
         {
             Username = username;
             Password = password;
             ImeKorisnika = imeKorisnika;
             PrezimeKorisnika = prezimeKorisnika;
-            _Pol = Pol;
+            _Pol = pol;
             EmailKorisnika = emailKorisnika;
             DatumRodjenja = datumRodjenja;
         }

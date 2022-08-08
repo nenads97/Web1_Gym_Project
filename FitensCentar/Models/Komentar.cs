@@ -7,7 +7,7 @@ namespace FitensCentar.Models
 {
     public class Komentar
     {
-        public Komentar(Korisnik posetilac, FitnesCentar fitnesCentar, int ocena, string tekstKomentara)
+        public Komentar(Korisnik posetilac, FitnesCentar fitnesCentar, short ocena, string tekstKomentara)
         {
             Posetilac = posetilac;
             FitnesCentar = fitnesCentar;
@@ -17,7 +17,7 @@ namespace FitensCentar.Models
 
         public Korisnik Posetilac { get; set; }
         public FitnesCentar FitnesCentar { get; set; } 
-        public int Ocena { get; set; }
+        public short Ocena { get; set; }
         public string TekstKomentara { get; set; }
 
     }

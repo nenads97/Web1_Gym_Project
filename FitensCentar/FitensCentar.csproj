@@ -125,6 +125,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Posetilac.cs" />
+    <Compile Include="Models\Posetioci.cs" />
+    <Compile Include="Models\SingltonPristupPodacima.cs" />
+    <Compile Include="Models\Trener.cs" />
+    <Compile Include="Models\Treneri.cs" />
+    <Compile Include="Models\Vlasnici.cs" />
+    <Compile Include="Models\Vlasnik.cs" />
+    <Compile Include="Models\ApsolutnaPutanjaKreiranje.cs" />
     <Compile Include="Models\FitnesCentar.cs" />
     <Compile Include="Models\GrupniTrening.cs" />
     <Compile Include="Models\Komentar.cs" />

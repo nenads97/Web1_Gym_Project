@@ -12,7 +12,7 @@ namespace FitensCentar.Models
 
     public class GrupniTrening
     {
-        public GrupniTrening(string naziv, TipTreninga trening, FitnesCentar fitCentar, DateTime vremeTreninga, int maxBrojPosetilaca, List<Korisnik> spisakPosetilaca)
+        public GrupniTrening(string naziv, TipTreninga trening, FitnesCentar fitCentar, string vremeTreninga, int maxBrojPosetilaca, List<Korisnik> spisakPosetilaca)
         {
             Naziv = naziv;
             _Trening = trening;
@@ -25,7 +25,7 @@ namespace FitensCentar.Models
         public string Naziv { get; set; }
         public TipTreninga _Trening { get; set; }
         public FitnesCentar FitCentar { get; set; }
-        public DateTime VremeTreninga { get; set; }
+        public string VremeTreninga { get; set; }
         public int MaxBrojPosetilaca { get; set; }
         public List<Korisnik> SpisakPosetilaca { get; set; }
 

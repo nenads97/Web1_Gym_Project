@@ -127,6 +127,7 @@
     </Compile>
     <Compile Include="Models\Posetilac.cs" />
     <Compile Include="Models\Posetioci.cs" />
+    <Compile Include="Models\ProveraValidnosti.cs" />
     <Compile Include="Models\SingltonPristupPodacima.cs" />
     <Compile Include="Models\Trener.cs" />
     <Compile Include="Models\Treneri.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Models\GrupniTrening.cs" />
     <Compile Include="Models\Komentar.cs" />
     <Compile Include="Models\Korisnik.cs" />
+    <Compile Include="Models\XMLFileController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

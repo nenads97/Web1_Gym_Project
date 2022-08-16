@@ -44,8 +44,13 @@ namespace FitensCentar.Models
             char[] niz = str.ToCharArray();
             for (int i = 0; i < niz.Length; i++)
             {
-                if (!JesteRazmak(niz[i]) || !JesteSlovo(niz[i]))
+                if (!JesteRazmak(niz[i]) || !JesteSlovo(niz[i]) || !JesteBroj(niz[i]))
+                {
+                    poruka = "*Lozinka moze da sadrzi samo slova, brojeve i razmake.";
+                    return false;
+                }
             }
+            return true;
         }
 
         public bool JesteRazmak(char c)
@@ -75,9 +80,11 @@ namespace FitensCentar.Models
             return false;
         }
 
+        /*
         private string PronadjiTrenera (string username, string password)
         {
             if ((SingltonPristupPodacima.Instance()))
         }
+        */
     }
 }

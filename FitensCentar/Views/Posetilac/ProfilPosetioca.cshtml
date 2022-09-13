@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "ProfilPosetioca";
+}
+<head>
+    <link rel="stylesheet" href="~/Scripts/lookCss.css">
+</head>
+<h2>ProfilPosetioca</h2>
+
+<p>Pregled x izmena mojih podataka</p>
+<form action="/Visitor/ProfilPosetioca" method="post">
+    <table border="1">
+        <tr>
+            <th>
+                Korisnicko ime:
+            </th>
+            <th>
+                Password:
+            </th>
+            <th>
+                Name:
+            </th>
+            <th>
+                Surname:
+            </th>
+            <th>
+                Gender:
+            </th>
+            <th>
+                Email:
+            </th>
+            <th>
+                Date Rodjenja:
+            </th>
+            <th>
+                Role:
+            </th>
+
+        <tr>
+            <td>
+                @ViewBag.PosetilacPodaci.Username
+            </td>
+            <td>
+                <input type="text" name="Password" value=@ViewBag.PosetilacPodaci.Password required />
+            </td>
+            <td>
+                <input type="text" name="Name" value=@ViewBag.PosetilacPodaci.Name required />
+            </td>
+            <td>
+                <input type="text" name="Surname" value=@ViewBag.PosetilacPodaci.Surname required />
+            </td>
+            <td>
+                <input type="text" name="Gender" value=@ViewBag.PosetilacPodaci.Gender required />
+            </td>
+            <td>
+                <input type="text" name="Email" value=@ViewBag.PosetilacPodaci.Email required />
+            </td>
+            <td>
+                <input type="date" name="DateOfBirth" value="@ViewBag.PosetilacPodaci.DateOfBirth" min="1990-03-01" max="2007-05-01" required />
+            </td>
+            <td>
+                @ViewBag.PosetilacPodaci.Role
+            </td>
+        </tr>
+
+    </table>
+    <input type="hidden" value=@ViewBag.user_name name="Username" />
+    <input type="submit" name="Sacuvaj" value="Sacuvaj" />
+</form>
+
+<form action="/Login/UserLogin" method="post">
+    <input type="hidden" name="Username" value="@ViewBag.PosetilacPodaci.Username" />
+    <input type="submit" value="Nazad" />
+</form>

@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Komentari";
+}
+<head>
+    <link rel="stylesheet" href="~/Scripts/lookCss.css">
+</head>
+<h2>Komentari</h2>
+
+<form action="/Login/AdminLogin" method="post">
+    <input type="hidden" name="Username" value="@ViewBag.user_name" />
+    <input type="submit" name="Nazad" value="Nazad" />
+</form>
+
+@if (ViewBag.ListOfComments.Count > 0)
+{
+    foreach (var k in ViewBag.ListOfComments)
+    {
+        if (k.Visibility == "CekaOdobrenje")
+        {
+            <form action="/Vlasnik/Komentari" method="post">
+                <table border="1">
+                    <tr><td>@k.FitnessCenterName</td></tr>
+                    <tr><td>@k.Username</td></tr>
+                    <tr><td>@k.CommentText</td></tr>
+                    <tr><td>@k.Review</td></tr>
+                    <tr><td>@k.Visibility</td></tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>
+                            <input type="submit" name="Option" value="Odobri" />
+                            <input type="submit" name="Option" value="Odbij" />
+                            <input type="hidden" name="FitnessCenterName" value="@k.FitnessCenterName" />
+                            <input type="hidden" name="Username" value="@k.Username" />
+                            <input type="hidden" name="CommentText" value="@k.CommentText" />
+                            <input type="hidden" name="Review" value="@k.Review" />
+                            <input type="hidden" name="Visibility" value="@k.Visibility" />
+                            <input type="hidden" name="Username" value="@ViewBag.user_name" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <br />
+            
+        }
+        else
+        {
+            <table border="1">
+                <tr><td>@k.FitnessCenterName</td></tr>
+                <tr><td>@k.Username</td></tr>
+                <tr><td>@k.CommentText</td></tr>
+                <tr><td>@k.Review</td></tr>
+                <tr><td>@k.Visibility</td></tr>
+            </table>
+            <br />
+        }
+
+    }
+
+}
+else
+{
+    <p>Ne postoje comments za fitnes centre</p>
+}

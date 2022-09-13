@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Registracija";
+}
+<head>
+    <link rel="stylesheet" href="~/Scripts/lookCss.css">
+</head>
+<h2>Registracija</h2>
+<html>
+<body>
+    <div style="text-align: center;">
+        <form method="post" action="/Neprijavljen/RegistracijaKorisnika">
+            <input type="text" name="Username" id="Username" placeholder="Username" required>
+            <br />
+            <br />
+
+            <input type="password" name="Password" id="password" placeholder="Password" required>
+            <br />
+            <br />
+
+            <input type="text" name="Name" id="name" placeholder="Name" required>
+            <br />
+            <br />
+            <input type="text" name="Surname" id="surname" placeholder="Surname" required>
+            <br />
+            <br />
+            <input type="text" name="Email" id="email" placeholder="Email" required>
+            <br />
+            <br />
+            <input type="date" id="dateOfBirth" name="DateOfBirth" min="1990-03-01" value="2000-05-01" max="2007-05-01" required>
+            <br />
+            <font color="black">(Month/Day/Year)</font>
+            <br />
+            <br />
+            <label>Gender :</label>
+            <input type="radio" name="Gender" id="gender" value="MUSKI" required><font color="black">Male</font>
+            <input type="radio" name="Gender" id="gender" value="ZENSKI" required><font color="black">Female</font>
+            <br />
+            <br />
+            <input type="submit" name="Registracija" id="registration" value="Registration">
+        </form>
+        <a href="/Neprijavljen/PocetnaNeprijavljeni">Back</a>
+    </div>
+</body>
+</html>
+

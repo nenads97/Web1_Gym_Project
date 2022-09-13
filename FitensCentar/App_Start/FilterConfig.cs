@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace FitensCentar
+namespace PR122_2016_Web_projekat
 {
     public class FilterConfig
     {

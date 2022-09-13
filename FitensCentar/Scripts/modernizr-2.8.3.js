@@ -199,7 +199,7 @@ window.Modernizr = (function( window, document, undefined ) {
         var isSupported = eventName in element;
 
         if ( !isSupported ) {
-          // If it has no `setAttribute` (i.e. doesn't implement Node interface), try generic element
+          // If it has no `setAttribute` (x.e. doesn't implement Node interface), try generic element
           if ( !element.setAttribute ) {
             element = document.createElement('div');
           }
@@ -332,8 +332,8 @@ window.Modernizr = (function( window, document, undefined ) {
     // browser-specific content by accident.
 
     function testProps( props, prefixed ) {
-        for ( var i in props ) {
-            var prop = props[i];
+        for ( var x in props ) {
+            var prop = props[x];
             if ( !contains(prop, "-") && mStyle[prop] !== undefined ) {
                 return prefixed == 'pfx' ? prop : true;
             }
@@ -348,12 +348,12 @@ window.Modernizr = (function( window, document, undefined ) {
      *   a certain property, it won't return undefined for it.
      */
     function testDOMProps( props, obj, elem ) {
-        for ( var i in props ) {
-            var item = obj[props[i]];
+        for ( var x in props ) {
+            var item = obj[props[x]];
             if ( item !== undefined) {
 
                 // return the property name as a string
-                if (elem === false) return props[i];
+                if (elem === false) return props[x];
 
                 // let's bind a function
                 if (is(item, 'function')){
@@ -690,7 +690,7 @@ window.Modernizr = (function( window, document, undefined ) {
               sheet = style.sheet || style.styleSheet,
               cssText = sheet ? (sheet.cssRules && sheet.cssRules[0] ? sheet.cssRules[0].cssText : sheet.cssText || '') : '';
 
-          bool = /src/i.test(cssText) && cssText.indexOf(rule.split(' ')[0]) === 0;
+          bool = /src/x.test(cssText) && cssText.indexOf(rule.split(' ')[0]) === 0;
         });
 
         return bool;
@@ -859,8 +859,8 @@ window.Modernizr = (function( window, document, undefined ) {
         // Currently Safari 4 and Opera 11 have support only for the input placeholder
         // Both tests are available in feature-detects/forms-placeholder.js
         Modernizr['input'] = (function( props ) {
-            for ( var i = 0, len = props.length; i < len; i++ ) {
-                attrs[ props[i] ] = !!(props[i] in inputElem);
+            for ( var x = 0, len = props.length; x < len; x++ ) {
+                attrs[ props[x] ] = !!(props[x] in inputElem);
             }
             if (attrs.list){
               // safari false positive's on datalist: webk.it/74252
@@ -880,9 +880,9 @@ window.Modernizr = (function( window, document, undefined ) {
         // Big thanks to @miketaylr for the html5 forms expertise. miketaylr.com/
         Modernizr['inputtypes'] = (function(props) {
 
-            for ( var i = 0, bool, inputElemType, defaultView, len = props.length; i < len; i++ ) {
+            for ( var x = 0, bool, inputElemType, defaultView, len = props.length; x < len; x++ ) {
 
-                inputElem.setAttribute('type', inputElemType = props[i]);
+                inputElem.setAttribute('type', inputElemType = props[x]);
                 bool = inputElem.type !== 'text';
 
                 // We first check to see if the type we give it sticks..
@@ -924,7 +924,7 @@ window.Modernizr = (function( window, document, undefined ) {
                     }
                 }
 
-                inputs[ props[i] ] = !!bool;
+                inputs[ props[x] ] = !!bool;
             }
             return inputs;
         })('search tel url email datetime date month week time datetime-local number range color'.split(' '));
@@ -1016,10 +1016,10 @@ window.Modernizr = (function( window, document, undefined ) {
         var options = window.html5 || {};
 
         /** Used to skip problem elements */
-        var reSkip = /^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i;
+        var reSkip = /^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/x;
 
         /** Not all elements can be cloned in IE **/
-        var saveClones = /^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i;
+        var saveClones = /^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|x|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/x;
 
         /** Detect whether the browser supports default html5 styles */
         var supportsHtml5Styles;
@@ -1030,7 +1030,7 @@ window.Modernizr = (function( window, document, undefined ) {
         /** The id for the the documents expando */
         var expanID = 0;
 
-        /** Cached data for each document */
+        /** Cached podaci for each document */
         var expandoData = {};
 
         /** Detect whether the browser supports unknown elements */
@@ -1089,20 +1089,20 @@ window.Modernizr = (function( window, document, undefined ) {
         }
 
         /**
-         * Returns the data associated to the given document
+         * Returns the podaci associated to the given document
          * @private
          * @param {Document} ownerDocument The document.
-         * @returns {Object} An object of data.
+         * @returns {Object} An object of podaci.
          */
         function getExpandoData(ownerDocument) {
-          var data = expandoData[ownerDocument[expando]];
-          if (!data) {
-            data = {};
+          var podaci = expandoData[ownerDocument[expando]];
+          if (!podaci) {
+            podaci = {};
             expanID++;
             ownerDocument[expando] = expanID;
-            expandoData[expanID] = data;
+            expandoData[expanID] = podaci;
           }
-          return data;
+          return podaci;
         }
 
         /**
@@ -1112,24 +1112,24 @@ window.Modernizr = (function( window, document, undefined ) {
          * @param {Document} ownerDocument The context document.
          * @returns {Object} The shived element.
          */
-        function createElement(nodeName, ownerDocument, data){
+        function createElement(nodeName, ownerDocument, podaci){
           if (!ownerDocument) {
             ownerDocument = document;
           }
           if(supportsUnknownElements){
             return ownerDocument.createElement(nodeName);
           }
-          if (!data) {
-            data = getExpandoData(ownerDocument);
+          if (!podaci) {
+            podaci = getExpandoData(ownerDocument);
           }
           var node;
 
-          if (data.cache[nodeName]) {
-            node = data.cache[nodeName].cloneNode();
+          if (podaci.cache[nodeName]) {
+            node = podaci.cache[nodeName].cloneNode();
           } else if (saveClones.test(nodeName)) {
-            node = (data.cache[nodeName] = data.createElem(nodeName)).cloneNode();
+            node = (podaci.cache[nodeName] = podaci.createElem(nodeName)).cloneNode();
           } else {
-            node = data.createElem(nodeName);
+            node = podaci.createElem(nodeName);
           }
 
           // Avoid adding some elements to fragments in IE < 9 because
@@ -1139,7 +1139,7 @@ window.Modernizr = (function( window, document, undefined ) {
           //   a 403 response, will cause the tab/window to crash
           // * Script elements appended to fragments will execute when their `src`
           //   or `text` property is set
-          return node.canHaveChildren && !reSkip.test(nodeName) && !node.tagUrn ? data.frag.appendChild(node) : node;
+          return node.canHaveChildren && !reSkip.test(nodeName) && !node.tagUrn ? podaci.frag.appendChild(node) : node;
         }
 
         /**
@@ -1148,20 +1148,20 @@ window.Modernizr = (function( window, document, undefined ) {
          * @param {Document} ownerDocument The context document.
          * @returns {Object} The shived DocumentFragment.
          */
-        function createDocumentFragment(ownerDocument, data){
+        function createDocumentFragment(ownerDocument, podaci){
           if (!ownerDocument) {
             ownerDocument = document;
           }
           if(supportsUnknownElements){
             return ownerDocument.createDocumentFragment();
           }
-          data = data || getExpandoData(ownerDocument);
-          var clone = data.frag.cloneNode(),
-          i = 0,
+          podaci = podaci || getExpandoData(ownerDocument);
+          var clone = podaci.frag.cloneNode(),
+          x = 0,
           elems = getElements(),
           l = elems.length;
-          for(;i<l;i++){
-            clone.createElement(elems[i]);
+          for(;x<l;x++){
+            clone.createElement(elems[x]);
           }
           return clone;
         }
@@ -1170,23 +1170,23 @@ window.Modernizr = (function( window, document, undefined ) {
          * Shivs the `createElement` and `createDocumentFragment` methods of the document.
          * @private
          * @param {Document|DocumentFragment} ownerDocument The document.
-         * @param {Object} data of the document.
+         * @param {Object} podaci of the document.
          */
-        function shivMethods(ownerDocument, data) {
-          if (!data.cache) {
-            data.cache = {};
-            data.createElem = ownerDocument.createElement;
-            data.createFrag = ownerDocument.createDocumentFragment;
-            data.frag = data.createFrag();
+        function shivMethods(ownerDocument, podaci) {
+          if (!podaci.cache) {
+            podaci.cache = {};
+            podaci.createElem = ownerDocument.createElement;
+            podaci.createFrag = ownerDocument.createDocumentFragment;
+            podaci.frag = podaci.createFrag();
           }
 
 
           ownerDocument.createElement = function(nodeName) {
             //abort shiv
             if (!html5.shivMethods) {
-              return data.createElem(nodeName);
+              return podaci.createElem(nodeName);
             }
-            return createElement(nodeName, ownerDocument, data);
+            return createElement(nodeName, ownerDocument, podaci);
           };
 
           ownerDocument.createDocumentFragment = Function('h,f', 'return function(){' +
@@ -1194,12 +1194,12 @@ window.Modernizr = (function( window, document, undefined ) {
                                                           'h.shivMethods&&(' +
                                                           // unroll the `createElement` calls
                                                           getElements().join().replace(/[\w\-]+/g, function(nodeName) {
-            data.createElem(nodeName);
-            data.frag.createElement(nodeName);
+            podaci.createElem(nodeName);
+            podaci.frag.createElement(nodeName);
             return 'c("' + nodeName + '")';
           }) +
             ');return n}'
-                                                         )(html5, data.frag);
+                                                         )(html5, podaci.frag);
         }
 
         /*--------------------------------------------------------------------------*/
@@ -1214,10 +1214,10 @@ window.Modernizr = (function( window, document, undefined ) {
           if (!ownerDocument) {
             ownerDocument = document;
           }
-          var data = getExpandoData(ownerDocument);
+          var podaci = getExpandoData(ownerDocument);
 
-          if (html5.shivCSS && !supportsHtml5Styles && !data.hasCSS) {
-            data.hasCSS = !!addStyleSheet(ownerDocument,
+          if (html5.shivCSS && !supportsHtml5Styles && !podaci.hasCSS) {
+            podaci.hasCSS = !!addStyleSheet(ownerDocument,
                                           // corrects block display not defined in IE6/7/8/9
                                           'article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}' +
                                             // adds styling not present in IE6/7/8/9
@@ -1227,7 +1227,7 @@ window.Modernizr = (function( window, document, undefined ) {
                                          );
           }
           if (!supportsUnknownElements) {
-            shivMethods(ownerDocument, data);
+            shivMethods(ownerDocument, podaci);
           }
           return ownerDocument;
         }
@@ -1250,7 +1250,7 @@ window.Modernizr = (function( window, document, undefined ) {
            * @memberOf html5
            * @type Array|String
            */
-          'elements': options.elements || 'abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video',
+          'elements': options.elements || 'abbr article aside audio bdi canvas podaci datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video',
 
           /**
            * current version of html5shiv

@@ -43,13 +43,13 @@ $.extend($.fn, {
 		}
 
 		// check if a validator for this form was already created
-		var validator = $.data(this[0], 'validator');
+		var validator = $.podaci(this[0], 'validator');
 		if ( validator ) {
 			return validator;
 		}
 		
 		validator = new $.validator( options, this[0] );
-		$.data(this[0], 'validator', validator); 
+		$.podaci(this[0], 'validator', validator); 
 		
 		if ( validator.settings.onsubmit ) {
 		
@@ -158,7 +158,7 @@ $.extend($.fn, {
 		var element = this[0];
 		
 		if (command) {
-			var settings = $.data(element.form, 'validator').settings;
+			var settings = $.podaci(element.form, 'validator').settings;
 			var staticRules = settings.rules;
 			var existingRules = $.validator.staticRules(element);
 			switch(command) {
@@ -182,7 +182,7 @@ $.extend($.fn, {
 			}
 		}
 		
-		var data = $.validator.normalizeRules(
+		var podaci = $.validator.normalizeRules(
 		$.extend(
 			{},
 			$.validator.metadataRules(element),
@@ -192,13 +192,13 @@ $.extend($.fn, {
 		), element);
 		
 		// make sure required is at front
-		if (data.required) {
-			var param = data.required;
-			delete data.required;
-			data = $.extend({required: param}, data);
+		if (podaci.required) {
+			var param = podaci.required;
+			delete podaci.required;
+			podaci = $.extend({required: param}, podaci);
 		}
 		
-		return data;
+		return podaci;
 	}
 });
 
@@ -245,8 +245,8 @@ $.validator.format = function(source, params) {
 	if ( params.constructor != Array ) {
 		params = [ params ];
 	}
-	$.each(params, function(i, n) {
-		source = source.replace(new RegExp("\\{" + i + "\\}", "g"), n);
+	$.each(params, function(x, n) {
+		source = source.replace(new RegExp("\\{" + x + "\\}", "g"), n);
 	});
 	return source;
 };
@@ -361,7 +361,7 @@ $.extend($.validator, {
 			});
 			
 			function delegate(event) {
-				var validator = $.data(this[0].form, "validator"),
+				var validator = $.podaci(this[0].form, "validator"),
 					eventType = "on" + event.type.replace(/^validate/, "");
 				validator.settings[eventType] && validator.settings[eventType].call(validator, this[0] );
 			}
@@ -392,8 +392,8 @@ $.extend($.validator, {
 		
 		checkForm: function() {
 			this.prepareForm();
-			for ( var i = 0, elements = (this.currentElements = this.elements()); elements[i]; i++ ) {
-				this.check( elements[i] );
+			for ( var x = 0, elements = (this.currentElements = this.elements()); elements[x]; x++ ) {
+				this.check( elements[x] );
 			}
 			return this.valid(); 
 		},
@@ -488,7 +488,7 @@ $.extend($.validator, {
 		
 		objectLength: function( obj ) {
 			var count = 0;
-			for ( var i in obj )
+			for ( var x in obj )
 				count++;
 			return count;
 		},
@@ -643,9 +643,9 @@ $.extend($.validator, {
 		
 		// return the first defined argument, allowing empty strings
 		findDefined: function() {
-			for(var i = 0; i < arguments.length; i++) {
-				if (arguments[i] !== undefined)
-					return arguments[i];
+			for(var x = 0; x < arguments.length; x++) {
+				if (arguments[x] !== undefined)
+					return arguments[x];
 			}
 			return undefined;
 		},
@@ -685,8 +685,8 @@ $.extend($.validator, {
 		},
 		
 		defaultShowErrors: function() {
-			for ( var i = 0; this.errorList[i]; i++ ) {
-				var error = this.errorList[i];
+			for ( var x = 0; this.errorList[x]; x++ ) {
+				var error = this.errorList[x];
 				this.settings.highlight && this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass );
 				this.showLabel( error.element, error.message );
 			}
@@ -694,13 +694,13 @@ $.extend($.validator, {
 				this.toShow = this.toShow.add( this.containers );
 			}
 			if (this.settings.success) {
-				for ( var i = 0; this.successList[i]; i++ ) {
-					this.showLabel( this.successList[i] );
+				for ( var x = 0; this.successList[x]; x++ ) {
+					this.showLabel( this.successList[x] );
 				}
 			}
 			if (this.settings.unhighlight) {
-				for ( var i = 0, elements = this.validElements(); elements[i]; i++ ) {
-					this.settings.unhighlight.call( this, elements[i], this.settings.errorClass, this.settings.validClass );
+				for ( var x = 0, elements = this.validElements(); elements[x]; x++ ) {
+					this.settings.unhighlight.call( this, elements[x], this.settings.errorClass, this.settings.validClass );
 				}
 			}
 			this.toHide = this.toHide.not( this.toShow );
@@ -763,7 +763,7 @@ $.extend($.validator, {
 		},
 
 		checkable: function( element ) {
-			return /radio|checkbox/i.test(element.type);
+			return /radio|checkbox/x.test(element.type);
 		},
 		
 		findByName: function( name ) {
@@ -830,7 +830,7 @@ $.extend($.validator, {
 		},
 		
 		previousValue: function(element) {
-			return $.data(element, "previousValue") || $.data(element, "previousValue", {
+			return $.podaci(element, "previousValue") || $.podaci(element, "previousValue", {
 				old: null,
 				valid: true,
 				message: this.defaultMessage( element, "remote" )
@@ -902,7 +902,7 @@ $.extend($.validator, {
 	metadataRules: function(element) {
 		if (!$.metadata) return {};
 		
-		var meta = $.data(element.form, 'validator').settings.meta;
+		var meta = $.podaci(element.form, 'validator').settings.meta;
 		return meta ?
 			$(element).metadata()[meta] :
 			$(element).metadata();
@@ -910,7 +910,7 @@ $.extend($.validator, {
 	
 	staticRules: function(element) {
 		var rules = {};
-		var validator = $.data(element.form, 'validator');
+		var validator = $.podaci(element.form, 'validator');
 		if (validator.settings.rules) {
 			rules = $.validator.normalizeRule(validator.settings.rules[element.name]) || {};
 		}
@@ -983,15 +983,15 @@ $.extend($.validator, {
 	},
 	
 	// Converts a simple string to a {string: true} rule, e.g., "required" to {required:true}
-	normalizeRule: function(data) {
-		if( typeof data == "string" ) {
+	normalizeRule: function(podaci) {
+		if( typeof podaci == "string" ) {
 			var transformed = {};
-			$.each(data.split(/\s/), function() {
+			$.each(podaci.split(/\s/), function() {
 				transformed[this] = true;
 			});
-			data = transformed;
+			podaci = transformed;
 		}
-		return data;
+		return podaci;
 	},
 	
 	// http://docs.jquery.com/Plugins/Validation/Validator/addMethod
@@ -1063,14 +1063,14 @@ $.extend($.validator, {
 			previous.old = value;
 			var validator = this;
 			this.startRequest(element);
-			var data = {};
-			data[element.name] = value;
+			var podaci = {};
+			podaci[element.name] = value;
 			$.ajax($.extend(true, {
 				url: param,
 				mode: "abort",
 				port: "validate" + element.name,
 				dataType: "json",
-				data: data,
+				podaci: podaci,
 				success: function(response) {
 					validator.settings.messages[element.name].remote = previous.originalMessage;
 					var valid = response === true;
@@ -1127,13 +1127,13 @@ $.extend($.validator, {
 		// http://docs.jquery.com/Plugins/Validation/Methods/email
 		email: function(value, element) {
 			// contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
-			return this.optional(element) || /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(value);
+			return this.optional(element) || /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/x.test(value);
 		},
 	
 		// http://docs.jquery.com/Plugins/Validation/Methods/url
 		url: function(value, element) {
 			// contributed by Scott Gonzalez: http://projects.scottsplayground.com/iri/
-			return this.optional(element) || /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value);
+			return this.optional(element) || /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/x.test(value);
 		},
         
 		// http://docs.jquery.com/Plugins/Validation/Methods/date
@@ -1187,7 +1187,7 @@ $.extend($.validator, {
 		// http://docs.jquery.com/Plugins/Validation/Methods/accept
 		accept: function(value, element, param) {
 			param = typeof param == "string" ? param.replace(/,/g, '|') : "png|jpe?g|gif";
-			return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i")); 
+			return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "x")); 
 		},
 		
 		// http://docs.jquery.com/Plugins/Validation/Methods/equalTo

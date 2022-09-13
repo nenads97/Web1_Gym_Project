@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace FitensCentar
+namespace PR122_2016_Web_projekat
 {
     public class RouteConfig
     {
@@ -16,7 +16,7 @@ namespace FitensCentar
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Neprijavljeni", action = "PocetnaNeprijavljeni", id = UrlParameter.Optional }
             );
         }
     }

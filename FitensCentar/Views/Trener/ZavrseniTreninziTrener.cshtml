@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "ZavrseniTreninziTrener";
+}
+<head>
+    <link rel="stylesheet" href="~/Scripts/lookCss.css">
+</head>
+<h2>ZavrseniTreninziTrener</h2>
+
+<form action="/Login/TrainerLogin" method="post">
+    <input type="hidden" name="Username" value="@ViewBag.user_name" />
+    <input type="submit" name="Nazad" value="Nazad" />
+</form>
+
+<form method="post" action="/Trainer/ZavrseniTreninziTrener">
+    <div>Sort:</div>
+    <input type="radio" name="typeOfSorting" value="ASCENDING" />ASCENDING
+    <input type="radio" name="typeOfSorting" value="DESCENDING" />DESCENDING
+
+    <select name="sortBy" required>
+        <option value="Name"> NAZIV</option>
+        <option value="TypeOfTraining"> TIP TRENINGA</option>
+        <option value="DateOfMaintenance">DATUM ODRZAVANJA</option>
+    </select>
+    <br />
+    <input type="hidden" value="@ViewBag.user_name" name="Username" />
+    <input type="submit" name="Option" value="Sort" />
+
+
+    <div>Name:</div><input type="text" name="Name" value="" /><br />
+    <div>TypeOfTraining:</div><select name="TypeOfTraining" >
+                            <option value=""></option>
+                            <option value="YOGA">YOGA</option>
+                            <option value="BODYPUMP">BODYPUMP</option>
+                            <option value="LESMILLSTONE">LESMILLSTONE</option>
+    </select><br />
+    <div>Date Odrzavanja(yyyy/mm/dd HH:mm):</div><input type="text" name="LowerLimit" placeholder="LowerLimit" /><input type="text" name="UpperLimit" placeholder="UpperLimit" /><br />
+    <br />
+    <input type="submit" name="Option" value="Find" />
+
+</form>
+@if (ViewBag.GroupTrainings == null || ViewBag.GroupTrainings.Count == 0)
+{
+    <p>@ViewBag.user_name nema nijedan predstojeci grupni training</p>
+}
+else
+{
+    foreach (var groupTraining in ViewBag.GroupTrainings)
+    {
+        DateTime dt;
+        DateTime.TryParse(groupTraining.TrainingDate, out dt);
+        if (dt < DateTime.Now)
+        {
+            <table border="1">
+                <tr><td>Name:</td><td>@groupTraining.Name</td></tr>
+                <tr><td>TypeOfTraining:</td><td>@groupTraining.Trening</td></tr>
+                <tr><td>FitnessCenter:</td><td>@groupTraining.FitnessCenterName</td></tr>
+                <tr><td>TrajanjeTrenigna</td><td>@groupTraining.TrainingDuration</td></tr>
+                <tr><td>TrainingDate</td><td>@groupTraining.TrainingDate</td></tr>
+                <tr><td>MaximumNumberOfVisitors</td><td>@groupTraining.MaximumNumberOfVisitors</td></tr>
+                <tr>
+                    <td>ListaPrijavljenih:</td>
+
+                    @if (ViewBag.Posetioci == null || ViewBag.Posetioci.Count == 0)
+                    {
+                        <td>Nema posetilaca</td>
+                    }
+                    else
+                    {
+                        <td>
+                            <ol>
+                                @if (ViewBag.Posetioci.ContainsKey(groupTraining.Name))
+                                {
+                                    foreach (var s in ViewBag.Posetioci[groupTraining.Name])
+                                    {
+                                        <li>@s</li>
+                                    }
+                                }
+                            </ol>
+                        </td>
+
+                    }
+                </tr>
+            </table>
+            <br/>
+        }
+
+    }
+}

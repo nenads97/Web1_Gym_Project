@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FitensCentar")]
+[assembly: AssemblyTitle("PR122_2016_Web_projekat")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FitensCentar")]
+[assembly: AssemblyProduct("PR122_2016_Web_projekat")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a05e9b61-0b1d-4bed-8b2f-b40f34b057d6")]
+[assembly: Guid("8a7e8877-1db8-43dd-9f24-ba34b98cfa4e")]
 
 // Version information for an assembly consists of the following four values:
 //

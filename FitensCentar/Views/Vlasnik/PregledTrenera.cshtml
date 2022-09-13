@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "PregledTrenera";
+}
+<head>
+    <link rel="stylesheet" href="~/Scripts/lookCss.css">
+</head>
+<form action="/Login/AdminLogin" method="post">
+    <input type="hidden" name="Username" value="@ViewBag.user_name" />
+    <input type="submit" value="Nazad" />
+</form>
+<h2>DodajTrenera</h2>
+
+<form action="/Vlasnik/PregledTrenera" method="post">
+    <table border="1">
+        <tr><td>Username:</td><td><input type="text" name="Username" placeholder="Username" required /></td></tr>
+        <tr><td>Password:</td><td><input type="password" name="Password" placeholder="Password" required /></td></tr>
+        <tr><td>Name:</td><td><input type="text" name="Name" placeholder="Name" required /></td></tr>
+        <tr><td>Surname:</td><td><input type="text" name="Surname" placeholder="Surname" required /></td></tr>
+        <tr><td>Email:</td><td><input type="text" name="Email" placeholder="Email" required /></td></tr>
+        <tr><td>DateOfBirth:</td><td><input type="date" name="DateOfBirth" min="1990-03-01" value="2000-05-01" max="2007-05-01" required /></td></tr>
+        <tr>
+            <td>Gender:</td>
+            <td>
+                <select name="Gender">
+                    <option value="MUSKI">Male</option>
+                    <option value="ZENSKI">Female</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>FitnessCenter:</td>
+            <td>
+                <select name="FitnessCenter">
+                    @foreach (var fitnessCenter in ViewBag.FitnessCenters)
+                    {
+                        <option value="@fitnessCenter">@fitnessCenter</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="hidden" name="AdminUsername" value="@ViewBag.user_name">
+                <input type="submit" name="Kreiraj" id="Kreiraj" value="Kreiraj">
+            </td>
+        </tr>
+    </table>
+</form>
+<br />
+<br />
+
+<h2>Lista mojih trenera</h2>
+
+@if (ViewBag.Treneri.Count == 0)
+{
+    <p>Ne postoji nijedan zaposleni kod @ViewBag.user_name</p>
+}
+else
+{
+    foreach (var trainer in ViewBag.Treneri)
+    {
+        <table border="1">
+            <tr><td>Username:</td><td>@trainer.Username</td></tr>
+            <tr><td>Password:</td><td>@trainer.Password</td></tr>
+            <tr><td>Name:</td><td>@trainer.Name</td></tr>
+            <tr><td>Surname:</td><td>@trainer.Surname</td></tr>
+            <tr><td>Gender:</td><td>@trainer.Gender</td></tr>
+            <tr><td>Email:</td><td>@trainer.Email</td></tr>
+            <tr><td>DateOfBirth:</td><td>@trainer.DateOfBirth</td></tr>
+            </table>
+        <form action="/Vlasnik/PregledTrenera" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <input type="submit" name="Blokiraj" value="Blokiraj" />
+                        <input type="hidden" name="Username" value="@trainer.Username" />
+                        <input type="hidden" name="AdminUsername" value="@ViewBag.user_name" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <br />
+            
+        
+     }       
+}

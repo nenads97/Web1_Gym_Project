@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace FitensCentar.Controllers
+namespace PR122_2016_Web_projekat.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "DetaljanPrikazPosetilac";
+}
+<head>
+    <link rel="stylesheet" href="~/Scripts/lookCss.css">
+</head>
+<h2>DetaljanPrikazPosetilac</h2>
+
+<table border="1">
+    <tr><th>Name</th><th>Adress</th><th>OpeningDate</th><th>Vlasnik</th><th>Mesecna Clanarina</th><th>Godisnja Clanarina</th><th>Cena jednog trenina</th><th>Cena grupnog treninga</th><th>Cena personalnog trenera</th></tr>
+    <tr><td>@ViewBag.FitnessCenter.Name</td><td>@ViewBag.FitnessCenter.Adress</td><td>@ViewBag.FitnessCenter.OpeningDate</td><td>@ViewBag.FitnessCenter.AdminUsername</td><td>@ViewBag.FitnessCenter.MonthlySubscription</td><td>@ViewBag.FitnessCenter.YearlySubscription</td><td>@ViewBag.FitnessCenter.PriceOfOneTraining</td><td>@ViewBag.FitnessCenter.GroupTrainingPrice</td><td>@ViewBag.FitnessCenter.PersonalTrainerPrice</td></tr>
+</table>
+<form action="/Login/UserLogin" method="post">
+    <input type="hidden" name="Username" value="@ViewBag.user_name" />
+    <input type="submit" name="Nazad" value="Nazad" />
+</form>
+@if (ViewBag.GroupTrainings == null || ViewBag.GroupTrainings.Count == 0)
+{
+    <p>@ViewBag.FitnessCenter.Name nema nijedan grupni training</p>
+}
+else
+{
+    foreach (var groupTraining in ViewBag.GroupTrainings)
+    {
+        DateTime dt;
+        DateTime.TryParse(groupTraining.TrainingDate, out dt);
+        if (dt > DateTime.Now)
+        {
+            <form action="/Visitor/DetaljanPrikazPosetilac" method="post">
+                <table border="1">
+                    <tr><td>Name:</td><td>@groupTraining.Name</td></tr>
+                    <tr><td>TypeOfTraining:</td><td>@groupTraining.Trening</td></tr>
+                    <tr><td>FitnessCenter:</td><td>@groupTraining.FitnessCenterName</td></tr>
+                    <tr><td>TrajanjeTrenigna</td><td>@groupTraining.TrainingDuration</td></tr>
+                    <tr><td>TrainingDate</td><td>@groupTraining.TrainingDate</td></tr>
+                    <tr><td>MaximumNumberOfVisitors</td><td>@groupTraining.MaximumNumberOfVisitors</td></tr>
+                </table>
+                <input type="hidden" name="Name" value="@groupTraining.FitnessCenterName"/>
+                <input type="hidden" name="NameOfGroupTraining" value="@groupTraining.Name" />
+                <input type="hidden" name="Username" value="@ViewBag.user_name" />
+                <input type="hidden" name="Username" value="@ViewBag.user_name" />
+                <input type="submit" name="Option" value="Prijavi" />
+            </form>
+        }
+
+    }
+}
+<h2>Komentari</h2>
+
+
+    <p>Ostavite vas comment</p>
+    <form action="/Visitor/DetaljanPrikazPosetilac" method="post">
+        <input type="text" name="CommentText" placeholder="Komentar..." required />
+        <br />
+        <input type="number" name="Review" placeholder="Review" min="1" max="5" required />
+        <input type="hidden" name="FitnessCenterName" value="@ViewBag.FitnessCenter.Name" />
+        <input type="hidden" name="Name" value="@ViewBag.FitnessCenter.Name" />
+        <input type="hidden" name="Username" value="@ViewBag.user_name" />
+        <input type="hidden" name="Username" value="@ViewBag.user_name" />
+        <input type="submit" name="Option" value="Komentarisi" />
+    </form>
+   
+@if(ViewBag.Komentari.Count == 0 || ViewBag.Komentari == null)
+{
+    <p>Ne postoje comments za ovaj fitnes centar</p>
+}
+else
+{
+    foreach (var k in ViewBag.Komentari)
+    {
+        if(k.FitnessCenterName == @ViewBag.FitnessCenter.Name && k.Visibility == "Odobreno")
+                    {
+                        <table border="1">
+                        <tr><td>@k.Username</td></tr>
+                        <tr><td>@k.CommentText</td></tr>
+                        <tr><td>@k.Review</td></tr>
+                        </table>
+                    }
+    }
+}
+

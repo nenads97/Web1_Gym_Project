@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace FitensCentar
+namespace PR122_2016_Web_projekat
 {
     public class BundleConfig
     {
@@ -23,7 +23,7 @@ namespace FitensCentar
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap-vapor.css",
+                      "~/Content/bootstrap.css",
                       "~/Content/site.css"));
         }
     }

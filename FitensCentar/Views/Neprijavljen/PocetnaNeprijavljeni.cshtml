@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "PocetnaNeprijavljeni";
+}
+<head>
+    <link rel="stylesheet" href="~/Scripts/lookCss.css">
+</head>
+<h2>PocetnaNeprijavljeni</h2>
+<ul>
+    <li>
+        <form action="/Neprijavljen/Registracija" method="post">
+            <input type="submit" value="Registration" name="Registration">
+        </form>
+    </li>
+    <li>
+        <form action="/Login/IndexLogin" method="post">
+            <input type="submit" value="Login" name="Login">
+        </form>
+    </li>
+</ul>
+
+<form method="post" action="/Neprijavljeni/PocetnaNeprijavljeni">
+    <div>Sort:</div>
+    <input type="radio" name="typeOfSorting" value="ASCENDING" />ASCENDING
+    <input type="radio" name="typeOfSorting" value="DESCENDING" />DESCENDING
+
+    <select name="sortBy" required>
+        <option value="Name"> NAZIV</option>
+        <option value="Adress"> ADRESA</option>
+        <option value="OpeningDate">GODINA OTVARANJA</option>
+    </select>
+    <br />
+    <input type="submit" name="Option" value="Sort" />
+
+    <div>Name:</div><input type="text" name="Name" value="" /><br />
+    <div>Adress:</div><input type="text" name="Adress" value="" placeholder="ulica broj,grad,postanski broj" /><br />
+    <div>Godina otvaranja:</div><input type="text" name="LowerLimit" placeholder="LowerLimit" /><input type="text" name="UpperLimit" placeholder="UpperLimit" /><br />
+    <br />
+    <input type="submit" name="Option" value="Find" />
+</form>
+@if (ViewBag.FitnessCenters == null || ViewBag.FitnessCenters.Count == 0) {
+    <p>Ne postoji nijedan fitnes centar</p>
+}
+else
+{   
+    <p>Fitnes Centri</p>
+   <table border="1">
+       <tr><th>Name</th><th>Adress</th><th>OpeningDate</th></tr>
+    @foreach(var fitnessCenter in ViewBag.FitnessCenters)
+                {
+                    <tr><td>@fitnessCenter.Name</td><td>@fitnessCenter.Adress</td><td>@fitnessCenter.OpeningDate</td><td>
+                        <form action="/Neprijavljeni/DetaljanPrikaz" method="post">
+                        <input type="submit" name="Detalji" value="Detalji">
+                        <input type="hidden" name="Name" value="@fitnessCenter.Name">
+                        </form>
+                        </td>
+                    </tr>
+                }
+   </table>
+}

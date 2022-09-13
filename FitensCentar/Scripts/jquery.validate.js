@@ -30,7 +30,7 @@ $.extend( $.fn, {
 		}
 
 		// Check if a validator for this form was already created
-		var validator = $.data( this[ 0 ], "validator" );
+		var validator = $.podaci( this[ 0 ], "validator" );
 		if ( validator ) {
 			return validator;
 		}
@@ -39,7 +39,7 @@ $.extend( $.fn, {
 		this.attr( "novalidate", "novalidate" );
 
 		validator = new $.validator( options, this[ 0 ] );
-		$.data( this[ 0 ], "validator", validator );
+		$.podaci( this[ 0 ], "validator", validator );
 
 		if ( validator.settings.onsubmit ) {
 
@@ -142,7 +142,7 @@ $.extend( $.fn, {
 	// https://jqueryvalidation.org/rules/
 	rules: function( command, argument ) {
 		var element = this[ 0 ],
-			settings, staticRules, existingRules, data, param, filtered;
+			settings, staticRules, existingRules, podaci, param, filtered;
 
 		// If nothing is selected, return empty object; can't chain anyway
 		if ( element == null ) {
@@ -159,7 +159,7 @@ $.extend( $.fn, {
 		}
 
 		if ( command ) {
-			settings = $.data( element.form, "validator" ).settings;
+			settings = $.podaci( element.form, "validator" ).settings;
 			staticRules = settings.rules;
 			existingRules = $.validator.staticRules( element );
 			switch ( command ) {
@@ -187,7 +187,7 @@ $.extend( $.fn, {
 			}
 		}
 
-		data = $.validator.normalizeRules(
+		podaci = $.validator.normalizeRules(
 		$.extend(
 			{},
 			$.validator.classRules( element ),
@@ -197,20 +197,20 @@ $.extend( $.fn, {
 		), element );
 
 		// Make sure required is at front
-		if ( data.required ) {
-			param = data.required;
-			delete data.required;
-			data = $.extend( { required: param }, data );
+		if ( podaci.required ) {
+			param = podaci.required;
+			delete podaci.required;
+			podaci = $.extend( { required: param }, podaci );
 		}
 
 		// Make sure remote is at back
-		if ( data.remote ) {
-			param = data.remote;
-			delete data.remote;
-			data = $.extend( data, { remote: param } );
+		if ( podaci.remote ) {
+			param = podaci.remote;
+			delete podaci.remote;
+			podaci = $.extend( podaci, { remote: param } );
 		}
 
-		return data;
+		return podaci;
 	}
 } );
 
@@ -259,8 +259,8 @@ $.validator.format = function( source, params ) {
 	if ( params.constructor !== Array ) {
 		params = [ params ];
 	}
-	$.each( params, function( i, n ) {
-		source = source.replace( new RegExp( "\\{" + i + "\\}", "g" ), function() {
+	$.each( params, function( x, n ) {
+		source = source.replace( new RegExp( "\\{" + x + "\\}", "g" ), function() {
 			return n;
 		} );
 	} );
@@ -416,7 +416,7 @@ $.extend( $.validator, {
 					this.name = $( this ).attr( "name" );
 				}
 
-				var validator = $.data( this.form, "validator" ),
+				var validator = $.podaci( this.form, "validator" ),
 					eventType = "on" + event.type.replace( /^validate/, "" ),
 					settings = validator.settings;
 				if ( settings[ eventType ] && !$( this ).is( settings.ignore ) ) {
@@ -454,8 +454,8 @@ $.extend( $.validator, {
 
 		checkForm: function() {
 			this.prepareForm();
-			for ( var i = 0, elements = ( this.currentElements = this.elements() ); elements[ i ]; i++ ) {
-				this.check( elements[ i ] );
+			for ( var x = 0, elements = ( this.currentElements = this.elements() ); elements[ x ]; x++ ) {
+				this.check( elements[ x ] );
 			}
 			return this.valid();
 		},
@@ -554,13 +554,13 @@ $.extend( $.validator, {
 		},
 
 		resetElements: function( elements ) {
-			var i;
+			var x;
 
 			if ( this.settings.unhighlight ) {
-				for ( i = 0; elements[ i ]; i++ ) {
-					this.settings.unhighlight.call( this, elements[ i ],
+				for ( x = 0; elements[ x ]; x++ ) {
+					this.settings.unhighlight.call( this, elements[ x ],
 						this.settings.errorClass, "" );
-					this.findByName( elements[ i ].name ).removeClass( this.settings.validClass );
+					this.findByName( elements[ x ].name ).removeClass( this.settings.validClass );
 				}
 			} else {
 				elements
@@ -576,12 +576,12 @@ $.extend( $.validator, {
 		objectLength: function( obj ) {
 			/* jshint unused: false */
 			var count = 0,
-				i;
-			for ( i in obj ) {
+				x;
+			for ( x in obj ) {
 
 				// This check allows counting elements with empty error
 				// message as invalid elements
-				if ( obj[ i ] !== undefined && obj[ i ] !== null && obj[ i ] !== false ) {
+				if ( obj[ x ] !== undefined && obj[ x ] !== null && obj[ x ] !== false ) {
 					count++;
 				}
 			}
@@ -742,8 +742,8 @@ $.extend( $.validator, {
 			element = this.validationTargetFor( this.clean( element ) );
 
 			var rules = $( element ).rules(),
-				rulesCount = $.map( rules, function( n, i ) {
-					return i;
+				rulesCount = $.map( rules, function( n, x ) {
+					return x;
 				} ).length,
 				dependencyMismatch = false,
 				val = this.elementValue( element ),
@@ -814,11 +814,11 @@ $.extend( $.validator, {
 		},
 
 		// Return the custom message for the given element and validation method
-		// specified in the element's HTML5 data attribute
+		// specified in the element's HTML5 podaci attribute
 		// return the generic message if present and no method specific message is present
 		customDataMessage: function( element, method ) {
-			return $( element ).data( "msg" + method.charAt( 0 ).toUpperCase() +
-				method.substring( 1 ).toLowerCase() ) || $( element ).data( "msg" );
+			return $( element ).podaci( "msg" + method.charAt( 0 ).toUpperCase() +
+				method.substring( 1 ).toLowerCase() ) || $( element ).podaci( "msg" );
 		},
 
 		// Return the custom message for the given element name and validation method
@@ -829,9 +829,9 @@ $.extend( $.validator, {
 
 		// Return the first defined argument, allowing empty strings
 		findDefined: function() {
-			for ( var i = 0; i < arguments.length; i++ ) {
-				if ( arguments[ i ] !== undefined ) {
-					return arguments[ i ];
+			for ( var x = 0; x < arguments.length; x++ ) {
+				if ( arguments[ x ] !== undefined ) {
+					return arguments[ x ];
 				}
 			}
 			return undefined;
@@ -891,9 +891,9 @@ $.extend( $.validator, {
 		},
 
 		defaultShowErrors: function() {
-			var i, elements, error;
-			for ( i = 0; this.errorList[ i ]; i++ ) {
-				error = this.errorList[ i ];
+			var x, elements, error;
+			for ( x = 0; this.errorList[ x ]; x++ ) {
+				error = this.errorList[ x ];
 				if ( this.settings.highlight ) {
 					this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass );
 				}
@@ -903,13 +903,13 @@ $.extend( $.validator, {
 				this.toShow = this.toShow.add( this.containers );
 			}
 			if ( this.settings.success ) {
-				for ( i = 0; this.successList[ i ]; i++ ) {
-					this.showLabel( this.successList[ i ] );
+				for ( x = 0; this.successList[ x ]; x++ ) {
+					this.showLabel( this.successList[ x ] );
 				}
 			}
 			if ( this.settings.unhighlight ) {
-				for ( i = 0, elements = this.validElements(); elements[ i ]; i++ ) {
-					this.settings.unhighlight.call( this, elements[ i ], this.settings.errorClass, this.settings.validClass );
+				for ( x = 0, elements = this.validElements(); elements[ x ]; x++ ) {
+					this.settings.unhighlight.call( this, elements[ x ], this.settings.errorClass, this.settings.validClass );
 				}
 			}
 			this.toHide = this.toHide.not( this.toShow );
@@ -1048,7 +1048,7 @@ $.extend( $.validator, {
 		},
 
 		checkable: function( element ) {
-			return ( /radio|checkbox/i ).test( element.type );
+			return ( /radio|checkbox/x ).test( element.type );
 		},
 
 		findByName: function( name ) {
@@ -1126,7 +1126,7 @@ $.extend( $.validator, {
 		previousValue: function( element, method ) {
 			method = typeof method === "string" && method || "remote";
 
-			return $.data( element, "previousValue" ) || $.data( element, "previousValue", {
+			return $.podaci( element, "previousValue" ) || $.podaci( element, "previousValue", {
 				old: null,
 				valid: true,
 				message: this.defaultMessage( element, { method: method } )
@@ -1245,7 +1245,7 @@ $.extend( $.validator, {
 			method, value;
 
 		for ( method in $.validator.methods ) {
-			value = $element.data( "rule" + method.charAt( 0 ).toUpperCase() + method.substring( 1 ).toLowerCase() );
+			value = $element.podaci( "rule" + method.charAt( 0 ).toUpperCase() + method.substring( 1 ).toLowerCase() );
 			this.normalizeAttributeRule( rules, type, method, value );
 		}
 		return rules;
@@ -1253,7 +1253,7 @@ $.extend( $.validator, {
 
 	staticRules: function( element ) {
 		var rules = {},
-			validator = $.data( element.form, "validator" );
+			validator = $.podaci( element.form, "validator" );
 
 		if ( validator.settings.rules ) {
 			rules = $.validator.normalizeRule( validator.settings.rules[ element.name ] ) || {};
@@ -1284,7 +1284,7 @@ $.extend( $.validator, {
 				if ( keepRule ) {
 					rules[ prop ] = val.param !== undefined ? val.param : true;
 				} else {
-					$.data( element.form, "validator" ).resetElements( $( element ) );
+					$.podaci( element.form, "validator" ).resetElements( $( element ) );
 					delete rules[ prop ];
 				}
 			}
@@ -1332,15 +1332,15 @@ $.extend( $.validator, {
 	},
 
 	// Converts a simple string to a {string: true} rule, e.g., "required" to {required:true}
-	normalizeRule: function( data ) {
-		if ( typeof data === "string" ) {
+	normalizeRule: function( podaci ) {
+		if ( typeof podaci === "string" ) {
 			var transformed = {};
-			$.each( data.split( /\s/ ), function() {
+			$.each( podaci.split( /\s/ ), function() {
 				transformed[ this ] = true;
 			} );
-			data = transformed;
+			podaci = transformed;
 		}
-		return data;
+		return podaci;
 	},
 
 	// https://jqueryvalidation.org/jQuery.validator.addMethod/
@@ -1391,7 +1391,7 @@ $.extend( $.validator, {
 			// https://gist.github.com/dperini/729294
 			// see also https://mathiasbynens.be/demo/url-regex
 			// modified to allow protocol-relative URLs
-			return this.optional( element ) || /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test( value );
+			return this.optional( element ) || /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/x.test( value );
 		},
 
 		// https://jqueryvalidation.org/date-method/
@@ -1507,7 +1507,7 @@ $.extend( $.validator, {
 			method = typeof method === "string" && method || "remote";
 
 			var previous = this.previousValue( element, method ),
-				validator, data, optionDataString;
+				validator, podaci, optionDataString;
 
 			if ( !this.settings.messages[ element.name ] ) {
 				this.settings.messages[ element.name ] = {};
@@ -1516,7 +1516,7 @@ $.extend( $.validator, {
 			this.settings.messages[ element.name ][ method ] = previous.message;
 
 			param = typeof param === "string" && { url: param } || param;
-			optionDataString = $.param( $.extend( { data: value }, param.data ) );
+			optionDataString = $.param( $.extend( { podaci: value }, param.podaci ) );
 			if ( previous.old === optionDataString ) {
 				return previous.valid;
 			}
@@ -1524,13 +1524,13 @@ $.extend( $.validator, {
 			previous.old = optionDataString;
 			validator = this;
 			this.startRequest( element );
-			data = {};
-			data[ element.name ] = value;
+			podaci = {};
+			podaci[ element.name ] = value;
 			$.ajax( $.extend( true, {
 				mode: "abort",
 				port: "validate" + element.name,
 				dataType: "json",
-				data: data,
+				podaci: podaci,
 				context: validator.currentForm,
 				success: function( response ) {
 					var valid = response === true || response === "true",

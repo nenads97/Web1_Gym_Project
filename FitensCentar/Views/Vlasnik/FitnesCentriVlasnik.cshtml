@@ -7,67 +7,105 @@
 <head>
     <link rel="stylesheet" href="~/Scripts/lookCss.css">
 </head>
-<form action="/Login/AdminLogin" method="post">
-    <input type="hidden" name="Username" value="@ViewBag.user_name" />
-    <input type="submit" value="Nazad" />
-</form>
-<h2>FitnesCentriVlasnik</h2>
-<form action="/Vlasnik/FitnesCentriVlasnik" method="post">
-    <table border="1">
-        <tr><td>Name:</td><td><input type="text" name="Name" placeholder="Name" required /></td></tr>
-        <tr><td>Adress:</td><td><input type="text" name="Adress" placeholder="ulicabroj/grad/postanski broj" required /></td></tr>
-        <tr><td>OpeningDate:</td><td><input type="number" name="OpeningDate" placeholder="OpeningDate" required /></td></tr>
-        <tr><td>MonthlySubscription:</td><td><input type="number" name="MonthlySubscription" placeholder="Mesecna" required /></td></tr>
-        <tr><td>YearlySubscription:</td><td><input type="number" name="YearlySubscription" placeholder="Godisnja" required /></td></tr>
-        <tr><td>PriceOfOneTraining:</td><td><input type="number" name="PriceOfOneTraining" placeholder="JedanTrening" required /></td></tr>
-        <tr><td>GroupTrainingPrice:</td><td><input type="number" name="GroupTrainingPrice" placeholder="GrupniTrening" required /></td></tr>
-        <tr><td>PersonalTrainerPrice:</td><td><input type="number" name="PersonalTrainerPrice" placeholder="PersonalniTrener" required /></td></tr>
-        <tr>
-            <td>
-                <input type="hidden" name="Username" value="@ViewBag.user_name">
-                <input type="submit" name="Option" id="Kreiraj" value="Kreiraj">
-            </td>
-        </tr>
-    </table>
-</form>
-<br />
-<br />
 
-<h2>Lista mojih fitnes centara</h2>
+<body>
+    <style>
+        .form-control {
+            width: 100%;
+        }
 
-@if (ViewBag.FitnessCenters.Count == 0)
-{
-    <p>@ViewBag.user_name nije vlasnik nijednog fitnes centra</p>
-}
-else
-{
-    foreach (var fitnessCenter in ViewBag.FitnessCenters)
-    {
-        <form action="/Vlasnik/FitnesCentriVlasnik" method="post">
-            <table border="1">
-                <tr><td>Name:</td><td>@fitnessCenter.Name</td></tr>
-                <tr><td>Adress:</td><td><input type="text" name="Adress"value="@fitnessCenter.Adress" required /></td></tr>
-                <tr><td>OpeningDate:</td><td><input type="number" name="OpeningDate"value="@fitnessCenter.OpeningDate" required /></td></tr>
-                <tr><td>MonthlySubscription:</td><td><input type="number" name="MonthlySubscription"value="@fitnessCenter.MonthlySubscription" required /></td></tr>
-                <tr><td>YearlySubscription:</td><td><input type="number" name="YearlySubscription"value="@fitnessCenter.YearlySubscription" required /></td></tr>
-                <tr><td>PriceOfOneTraining:</td><td><input type="number" name="PriceOfOneTraining"value="@fitnessCenter.PriceOfOneTraining" required /></td></tr>
-                <tr><td>GroupTrainingPrice:</td><td><input type="number" name="GroupTrainingPrice"value="@fitnessCenter.GroupTrainingPrice" required /></td></tr>
-                <tr><td>PersonalTrainerPrice:</td><td><input type="number" name="PersonalTrainerPrice"value="@fitnessCenter.PersonalTrainerPrice" required /></td></tr>
-            </table>
-            <table>
-                <tr>
-                    <td>
-                        <input type="submit" name="Option" value="Obrisi" />
-                        <input type="submit" name="Option" value="Izmeni" />
-                        <input type="hidden" name="Name" value="@fitnessCenter.Name" />
-                        <input type="hidden" name="AdminUsername" value="@fitnessCenter.AdminUsername" />
-                        <input type="hidden" name="Username" value="@ViewBag.user_name" />
-                    </td>
-                </tr>
-            </table>
+        tr {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .description{
+            height: 50px;
+            width: 50%;
+            text-align: center !important;
+            vertical-align: middle;
+            margin-left: auto;
+        }
+
+        .content-value {
+            height: 50px;
+            width: 50%;
+            text-align: center !important;
+            vertical-align: middle;
+            margin-left: auto;
+        }
+
+    </style>
+
+    <div class="container">
+        <form action="/Login/AdminLogin" method="post">
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <input class="form-control" type="hidden" name="Username" value="@ViewBag.user_name" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <input class="form-control" type="submit" value="Nazad" />
+                </div>
+            </div>
         </form>
-        <br />
-
-
+    </div>
+    <h2>FitnesCentriVlasnik</h2>
+    <form action="/Vlasnik/FitnesCentriVlasnik" method="post">
+        <table class="table table-bordered" border="1">
+            <tr><td class="description">Name:</td><td class="content-value"><input  type="text" name="Name" placeholder="Name" required /></td></tr>
+            <tr><td class="description">Adress:</td><td class="content-value"><input type="text" name="Adress" placeholder="ulicabroj/grad/postanski broj" required /></td></tr>
+            <tr><td class="description">OpeningDate:</td><td class="content-value"><input  type="number" name="OpeningDate" placeholder="OpeningDate" required /></td></tr>
+            <tr><td class="description">MonthlySubscription:</td><td class="content-value"><input  type="number" name="MonthlySubscription" placeholder="Mesecna" required /></td></tr>
+            <tr><td class="description">YearlySubscription:</td><td class="content-value"><input  type="number" name="YearlySubscription" placeholder="Godisnja" required /></td></tr>
+            <tr><td class="description">PriceOfOneTraining:</td><td class="content-value"><input  type="number" name="PriceOfOneTraining" placeholder="JedanTrening" required /></td></tr>
+            <tr><td class="description">GroupTrainingPrice:</td><td class="content-value"><input  type="number" name="GroupTrainingPrice" placeholder="GrupniTrening" required /></td></tr>
+            <tr><td class="description">PersonalTrainerPrice:</td><td class="content-value"><input  type="number" name="PersonalTrainerPrice" placeholder="PersonalniTrener" required /></td></tr>
+            <tr>
+                <td colspan="2">
+                    <input type="hidden" name="Username" value="@ViewBag.user_name">
+                    <input type="submit" class="btn-success" name="Option" id="Kreiraj" value="Kreiraj">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br />
+    <br />
+    <h2>Lista mojih fitnes centara</h2>
+    @if (ViewBag.FitnessCenters.Count == 0)
+    {
+        <p>@ViewBag.user_name nije vlasnik nijednog fitnes centra</p>
     }
-}
+    else
+    {
+        foreach (var fitnessCenter in ViewBag.FitnessCenters)
+        {
+            <form action="/Vlasnik/FitnesCentriVlasnik" method="post">
+                <table class="table table-bordered" border="1">
+                    <tr><td class="description">Name:</td><td>@fitnessCenter.Name</td></tr>
+                    <tr><td class="description">Adress:</td><td class="description"><input type="text" name="Adress" value="@fitnessCenter.Adress" required /></td></tr>
+                    <tr><td class="description">OpeningDate:</td><td class="description"><input type="number" name="OpeningDate" value="@fitnessCenter.OpeningDate" required /></td></tr>
+                    <tr><td class="description">MonthlySubscription:</td><td class="description"><input type="number" name="MonthlySubscription" value="@fitnessCenter.MonthlySubscription" required /></td></tr>
+                    <tr><td class="description">YearlySubscription:</td><td class="description"><input type="number" name="YearlySubscription" value="@fitnessCenter.YearlySubscription" required /></td></tr>
+                    <tr><td class="description">PriceOfOneTraining:</td><td class="description"><input type="number" name="PriceOfOneTraining" value="@fitnessCenter.PriceOfOneTraining" required /></td></tr>
+                    <tr><td class="description">GroupTrainingPrice:</td><td class="description"><input type="number" name="GroupTrainingPrice" value="@fitnessCenter.GroupTrainingPrice" required /></td></tr>
+                    <tr><td class="description">PersonalTrainerPrice:</td><td class="description"><input type="number" name="PersonalTrainerPrice" value="@fitnessCenter.PersonalTrainerPrice" required /></td></tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" class="btn-danger" name="Option" value="Obrisi" />
+                            <input type="submit" class="btn-warning" name="Option" value="Izmeni" />
+                            <input type="hidden" name="Name" value="@fitnessCenter.Name" />
+                            <input type="hidden" name="AdminUsername" value="@fitnessCenter.AdminUsername" />
+                            <input type="hidden" name="Username" value="@ViewBag.user_name" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <br />
+
+
+        }
+    }
+</body>
+

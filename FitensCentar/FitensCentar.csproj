@@ -123,8 +123,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NeprijavljenController.cs" />
-    <Compile Include="Controllers\PosetilacController.cs" />
-    <Compile Include="Controllers\TrenerController.cs" />
+    <Compile Include="Controllers\VisitorController.cs" />
+    <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="Controllers\VlasnikController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -152,6 +152,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\main.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -186,23 +187,23 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Neprijavljen\PocetnaNeprijavljeni.cshtml" />
     <Content Include="Views\Neprijavljen\DetaljanPrikaz.cshtml" />
-    <Content Include="Views\Posetilac\ProfilPosetioca.cshtml" />
-    <Content Include="Views\Trener\ProfilTrenera.cshtml" />
+    <Content Include="Views\Visitor\ProfilPosetioca.cshtml" />
+    <Content Include="Views\Trainer\ProfilTrenera.cshtml" />
     <Content Include="Views\Vlasnik\ProfilVlasnika.cshtml" />
     <Content Include="Views\Neprijavljen\Registracija.cshtml" />
-    <Content Include="Views\Posetilac\DetaljanPrikazPosetilac.cshtml" />
-    <Content Include="Views\Posetilac\GrupniTreninziPosetilac.cshtml" />
-    <Content Include="Views\Trener\DetaljanPrikazTrener.cshtml" />
-    <Content Include="Views\Trener\ZavrseniTreninziTrener.cshtml" />
+    <Content Include="Views\Visitor\DetaljanPrikazPosetilac.cshtml" />
+    <Content Include="Views\Visitor\GrupniTreninziPosetilac.cshtml" />
+    <Content Include="Views\Trainer\DetaljanPrikazTrener.cshtml" />
+    <Content Include="Views\Trainer\ZavrseniTreninziTrener.cshtml" />
     <Content Include="Views\Vlasnik\DetaljanPrikazVlasnik.cshtml" />
     <Content Include="Views\Vlasnik\FitnesCentriVlasnik.cshtml" />
     <Content Include="Views\Vlasnik\Komentari.cshtml" />
     <Content Include="Views\Vlasnik\PregledTrenera.cshtml" />
     <Content Include="Views\Login\IndexLogin.cshtml" />
-    <Content Include="Views\Login\LoginPosetilac.cshtml" />
-    <Content Include="Views\Login\LoginTrener.cshtml" />
+    <Content Include="Views\Login\UserLogin.cshtml" />
+    <Content Include="Views\Login\TrainerLogin.cshtml" />
     <Content Include="Views\Login\AdminLogin.cshtml" />
-    <Content Include="Views\Trener\PredstojeciTreninziTrener.cshtml" />
+    <Content Include="Views\Trainer\PredstojeciTreninziTrener.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

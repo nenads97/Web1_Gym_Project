@@ -1,4 +1,4 @@
-﻿using PR122_2016_Web_projekat.Models.Enumeracija;
+﻿using FitnesCentar.Models.Enumeracija;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Hosting;
 
-namespace PR122_2016_Web_projekat.Models
+namespace FitnesCentar.Models
 {
     public class Users
     {
@@ -134,88 +134,53 @@ namespace PR122_2016_Web_projekat.Models
                 }
             }
         }
+
         public void SaveTrainerFitnessCenterIntoDatabase(string Trainer,string FitnessCenter)
         {
-            string path = "~/App_Data/TrainerFitnessCenter.txt";
-            path = HostingEnvironment.MapPath(path);
-            FileStream fileStream = new FileStream(path, FileMode.Append);
-            StreamWriter streamWriter = new StreamWriter(fileStream);
-            //KorisnickoImeTrenera[0]?FitnessCenterName[1]
-            streamWriter.WriteLine($"{Trainer}?{FitnessCenter}");
+            WriteLineToFile(HostingEnvironment.MapPath("~/App_Data/TrainerFitnessCenter.txt"), $"{Trainer}?{FitnessCenter}");
             trainerOfFitnessCenter.Add(Tuple.Create(Trainer, FitnessCenter));           
-            streamWriter.Close();
-            fileStream.Close();
         }
         public void SaveGroupTrainingIntoDatabase(GroupTraining groupTraining,string Username)
         {
-            string path = "~/App_Data/GroupTrainings.txt";
-            path = HostingEnvironment.MapPath(path);
-            FileStream fileStream = new FileStream(path, FileMode.Append);
-            StreamWriter streamWriter = new StreamWriter(fileStream);
-            //Name[0]?Trening[1]?NameOfFitnessCenter[2]?TrainingDuration[3]?TrainingDate[4]?MaxPosetioci[5]?Deleted(default false)[6]
-            streamWriter.WriteLine($"{groupTraining.Name}?{groupTraining.Trening}?{groupTraining.FitnessCenterName}?{groupTraining.TrainingDuration}?{groupTraining.TrainingDate}?{groupTraining.MaximumNumberOfVisitors}?{groupTraining.Deleted}");
+            WriteLineToFile(
+                HostingEnvironment.MapPath("~/App_Data/GroupTrainings.txt"),
+                $"{groupTraining.Name}?{groupTraining.Trening}?{groupTraining.FitnessCenterName}?{groupTraining.TrainingDuration}?{groupTraining.TrainingDate}?{groupTraining.MaximumNumberOfVisitors}?{groupTraining.Deleted}"
+            );
             groupTrainings.Add(groupTraining.Name, groupTraining);
-
-            streamWriter.Close();
-            fileStream.Close();
 
             if (groupTrainingsTrainer.ContainsKey(Username))
             {
                 groupTrainingsTrainer[Username].Add(groupTraining.Name);
-                path = "~/App_Data/GroupTrainingsOfTrainer.txt";
-                path = HostingEnvironment.MapPath(path);
-                fileStream = new FileStream(path, FileMode.Open);
-                StreamReader streamReader = new StreamReader(fileStream);
-                string[] podaci = new string[200];
+
+                var podaci = ReadLinesFromFile(HostingEnvironment.MapPath("~/App_Data/GroupTrainingsOfTrainer.txt"), 200,true);
 
                 for (int x = 0; x < podaci.Length; x++)
                 {
-                    podaci[x] = streamReader.ReadLine();
                     if (podaci[x] == null)
                     {
                         break;
                     }
 
-                }
-                streamReader.Close();
-                using (streamWriter = new StreamWriter(path))
-                {
-                    for (int x = 0; x < podaci.Length; x++)
+                    if (podaci[x].Contains(Username))
                     {
-                        if (podaci[x] == null)
+                        string temporary = "";
+                        foreach (var nameOfGroupTraining in groupTrainingsTrainer[Username])
                         {
-                            break;
+                            temporary += $"?{nameOfGroupTraining}";
                         }
-
-                        if (podaci[x].Contains(Username))
-                        {
-                            string temporary = "";
-                            foreach (var nameOfGroupTraining in groupTrainingsTrainer[Username])
-                            {
-                                temporary += $"?{nameOfGroupTraining}";
-                            }
-                            podaci[x] = $"{Username}{temporary}";
-                        }
-                        streamWriter.WriteLine(podaci[x]);
+                        podaci[x] = $"{Username}{temporary}";
                     }
-                    streamWriter.Close();
-                }
 
+                    WriteLineToFile(HostingEnvironment.MapPath("~/App_Data/GroupTrainingsOfTrainer.txt"), podaci[x]);
+                }
             }
             else
             {
                 List<string> newList = new List<string>();
                 newList.Add(groupTraining.Name);
                 groupTrainingsTrainer.Add(Username, newList);
-                path = "~/App_Data/GroupTrainingsOfTrainer.txt";
-                path = HostingEnvironment.MapPath(path);
-                fileStream = new FileStream(path, FileMode.Append);
-                streamWriter = new StreamWriter(fileStream);
-                //Username[0]?Name[1]
-                streamWriter.WriteLine($"{Username}?{groupTraining.Name}");
 
-                streamWriter.Close();
-                fileStream.Close();
+                WriteLineToFile(HostingEnvironment.MapPath("~/App_Data/GroupTrainingsOfTrainer.txt"), $"{Username}?{groupTraining.Name}");
             }
         }
         public void SaveCommentIntoDatabase(Comment comment)

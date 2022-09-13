@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace PR122_2016_Web_projekat
+namespace FitnesCentar
 {
     public class BundleConfig
     {

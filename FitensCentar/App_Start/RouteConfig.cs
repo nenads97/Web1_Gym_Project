@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace PR122_2016_Web_projekat
+namespace FitnesCentar
 {
     public class RouteConfig
     {

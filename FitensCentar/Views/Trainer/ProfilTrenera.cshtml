@@ -7,12 +7,12 @@
 </head>
 <h2>Profil Trenera</h2>
 
-<p>Pregled x izmena mojih podataka</p>
+<p>Pregled i izmena mojih podataka</p>
 <form action="/Trainer/ProfilTrenera" method="post">
     <table border="1">
         <tr>
             <th>
-                Korisnicko ime:
+                Username:
             </th>
             <th>
                 Password:
@@ -30,13 +30,13 @@
                 Email:
             </th>
             <th>
-                Date Rodjenja:
+                Date Of Birth:
             </th>
             <th>
                 Role:
             </th>
             <th>
-                Fitnes Centar:
+                Fitness Center:
             </th>
         <tr>
             <td>
@@ -72,7 +72,7 @@
         </tr>
 
     </table>
-
+    <br/>
     <input type="hidden" value=@ViewBag.user_name name="Username" />
     <input type="submit" value="Sacuvaj" name="Sacuvaj"/>
 </form>

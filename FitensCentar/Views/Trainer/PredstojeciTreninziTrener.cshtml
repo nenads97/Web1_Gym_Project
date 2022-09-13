@@ -80,7 +80,7 @@ else
                     </tr>
                     <tr><td>FitnessCenter:</td><td>@groupTraining.FitnessCenterName</td></tr>
                     <tr>
-                        <td>TrajanjeTrenigna</td>
+                        <td>TrainingDuration</td>
                         <td>
                             <select name="TrainingDuration">
                                 @if (groupTraining.TrainingDuration == "30min")
@@ -108,7 +108,7 @@ else
                     <tr><td>TrainingDate</td><td><input type="text" name="TrainingDate" value="@groupTraining.TrainingDate" placeholder="yyyy/MM/DD HH:mm" /></td></tr>
                     <tr><td>MaximumNumberOfVisitors</td><td><input type="number" name="MaximumNumberOfVisitors" value="@groupTraining.MaximumNumberOfVisitors" /></td></tr>
                     <tr>
-                        <td>ListaPrijavljenih:</td>
+                        <td>ListOfSingedUpUsers:</td>
 
                         @if (ViewBag.Posetioci == null || ViewBag.Posetioci.Count == 0)
                         {

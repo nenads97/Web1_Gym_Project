@@ -1,4 +1,4 @@
-﻿using PR122_2016_Web_projekat.Models;
+﻿using FitnesCentar.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace PR122_2016_Web_projekat
+namespace FitnesCentar
 {
     public class MvcApplication : System.Web.HttpApplication
     {

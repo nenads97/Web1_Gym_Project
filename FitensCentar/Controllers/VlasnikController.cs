@@ -1,5 +1,5 @@
-﻿using PR122_2016_Web_projekat.Models;
-using PR122_2016_Web_projekat.Models.Enumeracija;
+﻿using FitnesCentar.Models;
+using FitnesCentar.Models.Enumeracija;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Windows;
 
-namespace PR122_2016_Web_projekat.Controllers
+namespace FitnesCentar.Controllers
 {
     public class VlasnikController : Controller
     {

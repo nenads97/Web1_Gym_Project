@@ -5,7 +5,7 @@
 <head>
     <link rel="stylesheet" href="~/Scripts/lookCss.css">
 </head>
-<h2>Pocetna Trainer</h2>
+<h2>Pocetna Trener</h2>
 
 <form action="/Trainer/ProfilTrenera" method="post">
     <input type="hidden" value="@ViewBag.user_name" name="Username" />
@@ -13,29 +13,30 @@
 </form>
 <form action="/Trainer/PredstojeciTreninziTrener" method="post">
     <input type="hidden" value="@ViewBag.user_name" name="Username" />
-    <input type="submit" value="Buduci trainings" />
+    <input type="submit" value="Buduci treninzi" />
 </form>
 <form action="/Trainer/ZavrseniTreninziTrener" method="post">
     <input type="hidden" value="@ViewBag.user_name" name="Username" />
-    <input type="submit" value="Zavrseni trainings" />
+    <input type="submit" value="Zavrseni treninzi" />
 </form>
 <form method="post" action="/Login/TrainerLogin">
     <div>Sort:</div>
-    <input type="radio" name="typeOfSorting" value="ASCENDING" />ASCENDING
-    <input type="radio" name="typeOfSorting" value="DESCENDING" />DESCENDING
+    <input type="radio" name="typeOfSorting" value="ASCENDING" />RASTUCE <br/>
+    <input type="radio" name="typeOfSorting" value="DESCENDING" />OPADAJUCE <br/>
 
     <select name="sortBy" required>
         <option value="Name"> NAZIV</option>
         <option value="Adress"> ADRESA</option>
-        <option value="OpeningDate">GODINA OTVARANJA</option>
+        <option value="OpeningDate">DATUM OTVARANJA</option>
     </select>
     <br />
     <input type="hidden" value="@ViewBag.user_name" name="Username" />
+    <br/>
     <input type="submit" name="Option" value="Sort" />
 
     <div>Name:</div><input type="text" name="Name" value="" placeholder="Name"/><br />
-    <div>Adress:</div><input type="text" name="Adress" value="" placeholder="ulica broj,grad,postanski broj" /><br />
-    <div>Godina otvaranja:</div><input type="text" name="LowerLimit" placeholder="LowerLimit" /><input type="text" name="UpperLimit" placeholder="UpperLimit" /><br />
+    <div>Adress:</div><input type="text" name="Adress" value="" placeholder="Ulica broj,grad,postanski broj" /><br />
+    <div>Opening Date:</div><input type="text" name="LowerLimit" placeholder="LowerLimit" /><input type="text" name="UpperLimit" placeholder="UpperLimit" /><br />
     <br />
     <input type="submit" name="Option" value="Find" />
 </form>
@@ -45,7 +46,7 @@
 }
 else
 {
-    <p>Fitnes Centri</p>
+    <p>Fitness Centers</p>
     <table border="1">
         <tr><th>Name</th><th>Adress</th><th>OpeningDate</th></tr>
         @foreach (var fitnessCenter in ViewBag.FitnessCenters)

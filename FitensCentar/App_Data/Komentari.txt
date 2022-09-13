@@ -1,3 +1,5 @@
 igor?JumboGym?Solidan?4?Odobreno
-igor?AggroGym?Nije nesto?2?CekaOdobrenje
 igor?JumboGym?Oke je?3?CekaOdobrenje
+igor?AggroGym?Nije nesto?2?Odobreno
+igor?AggroGym?Nije nesto?2?Odbijeno
+igor?AggroGym?Nije nesto?2?Odbijeno

@@ -14,8 +14,8 @@
 
 <form method="post" action="/Visitor/GrupniTreninziPosetilac">
     <div>Sort:</div>
-    <input type="radio" name="typeOfSorting" value="ASCENDING" />ASCENDING
-    <input type="radio" name="typeOfSorting" value="DESCENDING" />DESCENDING
+    <input type="radio" name="typeOfSorting" value="ASCENDING" />RASTUCE <br/>
+    <input type="radio" name="typeOfSorting" value="DESCENDING" />OPADAJUCE <br/>
 
     <select name="sortBy" required>
         <option value="Name"> NAZIV</option>
@@ -34,7 +34,7 @@
                                 <option value="BODYPUMP">BODYPUMP</option>
                                 <option value="LESMILLSTONE">LESMILLSTONE</option>
                             </select><br />
-    <div>Date Odrzavanja(yyyy/mm/dd HH:mm):</div><input type="text" name="LowerLimit" placeholder="LowerLimit" /><input type="text" name="UpperLimit" placeholder="UpperLimit" /><br />
+    <div>Date Of Maintenance(yyyy/mm/dd HH:mm):</div><input type="text" name="LowerLimit" placeholder="LowerLimit" /><input type="text" name="UpperLimit" placeholder="UpperLimit" /><br />
     <br />
     <input type="submit" name="Option" value="Find" />
 

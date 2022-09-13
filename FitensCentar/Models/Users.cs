@@ -53,73 +53,84 @@ namespace PR122_2016_Web_projekat.Models
                 }
             }
         }
+
+        public void WriteLineToFile(string path, string content)
+        {
+            using (FileStream fileStream = new FileStream(path, FileMode.Append))
+                using (StreamWriter streamWriter = new StreamWriter(fileStream))
+                    streamWriter.WriteLine(content);
+        }
+
+        public void WriteLinesToFile(string path, string[] content)
+        {
+            for (int i = 0; i < content.Length; i++)
+                WriteLineToFile(path, content[i]);
+        }
+
+        public string ReadLineFromFile(string path)
+        {
+            string line = null;
+            using (FileStream fileStream = new FileStream(path, FileMode.Open))
+                using (StreamReader streamReader = new StreamReader(fileStream))
+                    line = streamReader.ReadLine();
+            return line;
+        }
+
+        public string[] ReadLinesFromFile(string path, int length, bool breakForNull = false)
+        {
+            string[] lines = new string[length];
+            for (int i = 0; i < length; i++)
+            {
+                lines[i] = ReadLineFromFile(path);
+                if (breakForNull && lines[i] == null)
+                    break;
+            }
+            return lines;
+        }
+
         public void SaveFitnessCenterIntoDatabase(FitnessCenter fitnessCenter)
         {
-            string path = "~/App_Data/FitnessCenters.txt";
-            path = HostingEnvironment.MapPath(path);
-            FileStream fileStream = new FileStream(path, FileMode.Append);
-            StreamWriter streamWriter = new StreamWriter(fileStream);
-            //Name[0]?Adress[1]?OpeningDate[2]?Vlasnik[3]?Mesecna[4]?Godisnja[5]?JedanT[6]?Grupni[7]?Personalni[8]?Deleted(default false)[9]
-            streamWriter.WriteLine($"{fitnessCenter.Name}?{fitnessCenter.Adress}?{fitnessCenter.OpeningDate}?{fitnessCenter.AdminUsername}?{fitnessCenter.MonthlySubscription}?{fitnessCenter.YearlySubscription}?{fitnessCenter.PriceOfOneTraining}?{fitnessCenter.GroupTrainingPrice}?{fitnessCenter.PersonalTrainerPrice}?{fitnessCenter.Deleted}");
+            WriteLineToFile(
+                HostingEnvironment.MapPath("~/App_Data/FitnessCenters.txt"),
+                $"{fitnessCenter.Name}?{fitnessCenter.Adress}?{fitnessCenter.OpeningDate}?{fitnessCenter.AdminUsername}?{fitnessCenter.MonthlySubscription}?{fitnessCenter.YearlySubscription}?{fitnessCenter.PriceOfOneTraining}?{fitnessCenter.GroupTrainingPrice}?{fitnessCenter.PersonalTrainerPrice}?{fitnessCenter.Deleted}"
+            );
             fitnessCenters.Add(fitnessCenter.Name, fitnessCenter);
-           
-            streamWriter.Close();
-            fileStream.Close();
+
             if (!fitnessCentersAdmin.ContainsKey(fitnessCenter.AdminUsername))
             {
                 List<string> nevv = new List<string>();
                 nevv.Add(fitnessCenter.Name);
                 fitnessCentersAdmin.Add(fitnessCenter.AdminUsername, nevv);
-                path = "~/App_Data/FitnessCentersOfAdmin.txt";
-                path = HostingEnvironment.MapPath(path);
-                fileStream = new FileStream(path, FileMode.Append);
-                streamWriter = new StreamWriter(fileStream);
-                //Vlasnik[0]?FitnessCenter[1]
-                streamWriter.WriteLine($"{fitnessCenter.AdminUsername}?{fitnessCenter.Name}");
-                
-                streamWriter.Close();
-                fileStream.Close();
+
+                WriteLineToFile(
+                    HostingEnvironment.MapPath("~/App_Data/FitnessCentersOfAdmin.txt"),
+                    $"{fitnessCenter.AdminUsername}?{fitnessCenter.Name}"
+                );
             }
             else
             {
                 fitnessCentersAdmin[fitnessCenter.AdminUsername].Add(fitnessCenter.Name);
-                path = "~/App_Data/FitnessCentersOfAdmin.txt";
-                path = HostingEnvironment.MapPath(path);
-                fileStream = new FileStream(path, FileMode.Open);
-                StreamReader streamReader = new StreamReader(fileStream);
-                string[] podaci = new string[200];
 
-                for (int x = 0; x < podaci.Length; x++)
+                string path = HostingEnvironment.MapPath("~/App_Data/FitnessCentersOfAdmin.txt");
+                string[] data = ReadLinesFromFile(path, 200, true);
+                
+                for (int x = 0; x < data.Length; x++)
                 {
-                    podaci[x] = streamReader.ReadLine();
-                    if (podaci[x] == null)
-                    {
+                    if (data[x] == null)
                         break;
-                    }
 
-                }
-                streamReader.Close();
-                using ( streamWriter = new StreamWriter(path))
-                {
-                    for (int x = 0; x < podaci.Length; x++)
+                    if (data[x].Contains(fitnessCenter.AdminUsername))
                     {
-                        if (podaci[x] == null)
-                        {
-                            break;
-                        }
-
-                        if (podaci[x].Contains(fitnessCenter.AdminUsername))
-                        {
-                            string temporary = "";
-                            foreach(var nameOfFitnessCenter in fitnessCentersAdmin[fitnessCenter.AdminUsername])
-                            {
-                                temporary += $"?{nameOfFitnessCenter}"; 
-                            }
-                            podaci[x] = $"{fitnessCenter.AdminUsername}{temporary}";
-                        }
-                        streamWriter.WriteLine(podaci[x]);
+                        string temporary = "";
+                        foreach(var nameOfFitnessCenter in fitnessCentersAdmin[fitnessCenter.AdminUsername])
+                            temporary += $"?{nameOfFitnessCenter}";
+                        data[x] = $"{fitnessCenter.AdminUsername}{temporary}";
                     }
-                    streamWriter.Close();
+
+                    WriteLineToFile(
+                        HostingEnvironment.MapPath("~/App_Data/FitnessCentersOfAdmin.txt"),
+                        data[x]
+                    );
                 }
             }
         }
@@ -902,7 +913,6 @@ namespace PR122_2016_Web_projekat.Models
         {
             foreach(var tr in trainerOfFitnessCenter)
             {
-                // komentar
                 if(tr.Item1 == Username)
                 {
                     if(tr.Item2 != "")
@@ -1494,36 +1504,17 @@ namespace PR122_2016_Web_projekat.Models
         }
         public bool UserNameCheck(string userName)
         {
-            if (listOfUsers.ContainsKey(userName))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return listOfUsers.ContainsKey(userName);
         }
         public bool ValidationOfDocumment(string Date)
         {
             DateTime result;
-            if (DateTime.TryParse(Date, out result))
-            {
-                return true;
-            }
-            return false;
+            return DateTime.TryParse(Date, out result);
 
         }
-        public bool LoggedUserChrck(string Username,string password)
+        public bool LoggedUserChrck(string username,string password)
         {
-            foreach (var user in listOfUsers.Values)
-            {
-                if (user.Password == password && user.Username == Username)
-                {
-                    return true;
-                }
-            }
-            return false;
-               
+            return listOfUsers.Where(x => x.Value.Username == username && x.Value.Password == password).Count() > 0;
         }
         public string RoleCheck(string Username)
         {

@@ -201,7 +201,7 @@
     <Content Include="Views\Login\IndexLogin.cshtml" />
     <Content Include="Views\Login\LoginPosetilac.cshtml" />
     <Content Include="Views\Login\LoginTrener.cshtml" />
-    <Content Include="Views\Login\LoginVlasnik.cshtml" />
+    <Content Include="Views\Login\AdminLogin.cshtml" />
     <Content Include="Views\Trener\PredstojeciTreninziTrener.cshtml" />
   </ItemGroup>
   <ItemGroup />

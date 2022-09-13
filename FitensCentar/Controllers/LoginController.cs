@@ -13,6 +13,7 @@ namespace PR122_2016_Web_projekat.Controllers
         // GET: Login
         public ActionResult IndexLogin()
         {
+            Session["users"] = HttpContext.Application["users"];
             return View();
         }
         [HttpPost]

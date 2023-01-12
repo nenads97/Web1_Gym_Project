@@ -33,7 +33,7 @@ namespace FitnesCentar.Controllers
             return View();
         }
        
-        public ActionResult ZavrseniTreninziTrener(string Username,string Option,string typeOfSorting,string sortBy,string Name,string TypeOfTraining,string LowerLimit,string UpperLimit)
+        public ActionResult ZavrseniTreninziTrener(string Username,string Option,string typeOfSorting,string sortBy,string Naziv,string TypeOfTraining,string DonjaGranica,string GornjaGranica)
         {
             Users users = (Users)Session["users"];
             if (!users.UserNameCheck(Username))
@@ -47,23 +47,23 @@ namespace FitnesCentar.Controllers
             else if(Option == "Find")
             {
                 DateTime date = new DateTime();
-                if (LowerLimit == "" && UpperLimit == "")
+                if (DonjaGranica == "" && GornjaGranica == "")
                 {
-                    if (Name == "" && TypeOfTraining == "")
+                    if (Naziv == "" && TypeOfTraining == "")
                     {
                         ViewBag.GroupTrainings = users.GroupTrainingSorting("", "",Username);
                     }
                     else
                     {
-                        ViewBag.GroupTrainings = users.GroupTrainingSearch(Name, TypeOfTraining, LowerLimit, UpperLimit,Username);
+                        ViewBag.GroupTrainings = users.GroupTrainingSearch(Naziv, TypeOfTraining, DonjaGranica, GornjaGranica,Username);
                     }
 
                 }
-                else if (LowerLimit != "" && UpperLimit == "")
+                else if (DonjaGranica != "" && GornjaGranica == "")
                 {
-                    if (DateTime.TryParse(LowerLimit, out date))
+                    if (DateTime.TryParse(DonjaGranica, out date))
                     {
-                        ViewBag.GroupTrainings = users.GroupTrainingSearch(Name, TypeOfTraining, LowerLimit, UpperLimit,Username);
+                        ViewBag.GroupTrainings = users.GroupTrainingSearch(Naziv, TypeOfTraining, DonjaGranica, GornjaGranica,Username);
                     }
                     else
                     {
@@ -71,11 +71,11 @@ namespace FitnesCentar.Controllers
                         MessageBox.Show("Morate uneti datum za DonjuGranicu");
                     }
                 }
-                else if (LowerLimit == "" && UpperLimit != "")
+                else if (DonjaGranica == "" && GornjaGranica != "")
                 {
-                    if (DateTime.TryParse(UpperLimit, out date))
+                    if (DateTime.TryParse(GornjaGranica, out date))
                     {
-                        ViewBag.GroupTrainings = users.GroupTrainingSearch(Name, TypeOfTraining, LowerLimit, UpperLimit, Username);
+                        ViewBag.GroupTrainings = users.GroupTrainingSearch(Naziv, TypeOfTraining, DonjaGranica, GornjaGranica, Username);
                     }
                     else
                     {
@@ -83,11 +83,11 @@ namespace FitnesCentar.Controllers
                         MessageBox.Show("Morate uneti datum za GornjuGranicu");
                     }
                 }
-                else if (LowerLimit != "" && UpperLimit != "")
+                else if (DonjaGranica != "" && GornjaGranica != "")
                 {
-                    if (DateTime.TryParse(LowerLimit, out date) && DateTime.TryParse(UpperLimit, out date))
+                    if (DateTime.TryParse(DonjaGranica, out date) && DateTime.TryParse(GornjaGranica, out date))
                     {
-                        ViewBag.GroupTrainings = users.GroupTrainingSearch(Name, TypeOfTraining, LowerLimit, UpperLimit,Username);
+                        ViewBag.GroupTrainings = users.GroupTrainingSearch(Naziv, TypeOfTraining, DonjaGranica, GornjaGranica,Username);
                     }
                     else
                     {
@@ -105,7 +105,7 @@ namespace FitnesCentar.Controllers
             ViewBag.user_name = Username;           
             return View();
         }
-        public ActionResult PredstojeciTreninziTrener(string Username,GroupTraining GrupniTrening,string FitnessCenterName,string Name,string Option,string Date,string Vreme)
+        public ActionResult PredstojeciTreninziTrener(string Username,GroupTraining GrupniTrening,string FitnessCenterName,string Naziv,string Option,string Date,string Vreme)
         {
             Users users = (Users)Session["users"];
             if (!users.UserNameCheck(Username))
@@ -119,25 +119,25 @@ namespace FitnesCentar.Controllers
                 if (DateTime.Parse(GrupniTrening.TrainingDate) > DateTime.Parse("2022/07/10 00:00"))
                 {
                     users.SaveGroupTrainingIntoDatabase(GrupniTrening, Username);
-                    MessageBox.Show($"Uspesno dodat {GrupniTrening.Name}");
+                    MessageBox.Show($"Uspesno dodat {GrupniTrening.Naziv}");
                     Session["users"] = users;
                 }
                 else
                 {
-                    MessageBox.Show($"{GrupniTrening.Name} nedovoljno daleko u buducnost");
+                    MessageBox.Show($"{GrupniTrening.Naziv} nedovoljno daleko u buducnost");
                 }
                 
             }
             else if (Option == "Obrisi")
             {
-                if (users.visitorsGroupTraining.ContainsKey(GrupniTrening.Name))
+                if (users.visitorsGroupTraining.ContainsKey(GrupniTrening.Naziv))
                 {
-                    MessageBox.Show($"{GrupniTrening.Name} ima prijavljene posetioce");
+                    MessageBox.Show($"{GrupniTrening.Naziv} ima prijavljene posetioce");
                 }
                 else
                 {
-                    users.DeleteGroupTraining(GrupniTrening.Name, Username);
-                    MessageBox.Show($"Uspesno obrisan {GrupniTrening.Name}");
+                    users.DeleteGroupTraining(GrupniTrening.Naziv, Username);
+                    MessageBox.Show($"Uspesno obrisan {GrupniTrening.Naziv}");
                     Session["users"] = users;
                 }
                
@@ -145,7 +145,7 @@ namespace FitnesCentar.Controllers
             else if (Option == "Izmeni")
             {
                 users.ChangeGroupTraining(GrupniTrening);
-                MessageBox.Show($"Uspesno izmenjen {GrupniTrening.Name}");
+                MessageBox.Show($"Uspesno izmenjen {GrupniTrening.Naziv}");
                 Session["users"] = users;
             }
 
@@ -154,7 +154,7 @@ namespace FitnesCentar.Controllers
             ViewBag.user_name = Username;
             return View();
         }
-        public ActionResult DetaljanPrikazTrener(string Name,string Username)
+        public ActionResult DetaljanPrikazTrener(string Naziv,string Username)
         {
             Users users = (Users)Session["users"];
             if (!users.UserNameCheck(Username))
@@ -163,10 +163,10 @@ namespace FitnesCentar.Controllers
             }
             FitnessCenter fitnessCenter = new FitnessCenter();
             ViewBag.user_name = Username;
-            users.fitnessCenters.TryGetValue(Name, out fitnessCenter);
+            users.fitnessCenters.TryGetValue(Naziv, out fitnessCenter);
             ViewBag.FitnessCenter = fitnessCenter;
-            ViewBag.GroupTrainings = users.GroupTrainingsOfFitnessCenter(Name);
-            ViewBag.Komentari = users.ListOfComments(Name);
+            ViewBag.GroupTrainings = users.GroupTrainingsOfFitnessCenter(Naziv);
+            ViewBag.Komentari = users.ListOfComments(Naziv);
             return View();
         }
     }

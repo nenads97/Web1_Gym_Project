@@ -3,58 +3,79 @@
     ViewBag.Title = "PocetnaNeprijavljeni";
 }
 <head>
-    <link rel="stylesheet" href="~/Scripts/lookCss.css">
+    <link rel="stylesheet" href="../../Style/Css/style.css">
 </head>
-<h2>PocetnaNeprijavljeni</h2>
-<ul>
-    <li>
-        <form action="/Neprijavljen/Registracija" method="post">
-            <input type="submit" value="Registration" name="Registration">
-        </form>
-    </li>
-    <li>
-        <form action="/Login/IndexLogin" method="post">
-            <input type="submit" value="Login" name="Login">
-        </form>
-    </li>
-</ul>
-
-<form method="post" action="/Neprijavljeni/PocetnaNeprijavljeni">
-    <div>Sort:</div>
-    <input type="radio" name="typeOfSorting" value="ASCENDING" />ASCENDING
-    <input type="radio" name="typeOfSorting" value="DESCENDING" />DESCENDING
-
-    <select name="sortBy" required>
-        <option value="Name"> NAZIV</option>
-        <option value="Adress"> ADRESA</option>
-        <option value="OpeningDate">OPENING DATE</option>
-    </select>
-    <br />
-    <input type="submit" name="Option" value="Sort" />
-
-    <div>Name:</div><input type="text" name="Name" value="" /><br />
-    <div>Adress:</div><input type="text" name="Adress" value="" placeholder="ulica broj,grad,postanski broj" /><br />
-    <div>Opening Date:</div><input type="text" name="LowerLimit" placeholder="LowerLimit" /><input type="text" name="UpperLimit" placeholder="UpperLimit" /><br />
-    <br />
-    <input type="submit" name="Option" value="Find" />
-</form>
-@if (ViewBag.FitnessCenters == null || ViewBag.FitnessCenters.Count == 0) {
-    <p>Ne postoji nijedan fitnes centar</p>
-}
-else
-{   
-    <p>Fitness Centers</p>
-   <table border="1">
-       <tr><th>Name</th><th>Adress</th><th>OpeningDate</th></tr>
-    @foreach(var fitnessCenter in ViewBag.FitnessCenters)
-                {
-                    <tr><td>@fitnessCenter.Name</td><td>@fitnessCenter.Adress</td><td>@fitnessCenter.OpeningDate</td><td>
-                        <form action="/Neprijavljeni/DetaljanPrikaz" method="post">
-                        <input type="submit" name="Detalji" value="Detalji">
-                        <input type="hidden" name="Name" value="@fitnessCenter.Name">
+<body>
+    <header class="header">
+        <div class="wrapper clearfix">
+            <h1 class="naslov">Početna</h1>
+            <div class="nav">
+                <ul class="nav-list">
+                    <li class="nav-list-item">
+                        <form action="/Neprijavljen/Registracija" method="post">
+                            <input class="submit" type="submit" value="Registracija" name="Registracija">
                         </form>
-                        </td>
-                    </tr>
-                }
-   </table>
-}
+                    </li>
+                    <li class="nav-list-item">
+                        <form action="/Login/IndexLogin" method="post">
+                            <input class="submit" type="submit" value="Login" name="Login">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>   
+    </header>
+
+    <main class="main">   
+        <div class="wrapper"> 
+            <form class="main-form" method="post" action="/Neprijavljen/PocetnaNeprijavljeni">
+                <div class="main-naslov">Sortiranje:</div>
+                    <label class="form-control">
+                        <input type="radio" name="typeOfSorting" id="rastuce" value="Rastuće" />
+                        Rastuće
+                    </label>                    
+
+                    <label class="form-control">
+                        <input type="radio" name="typeOfSorting" id="opadajuce" value="Opadajuće" />
+                        Opadajuće
+                    </label>
+
+                <div class="select">
+                    <select name="sortBy" required>
+                        <option value="Naziv"> Naziv</option>
+                        <option value="Adresa"> Adresa</option>
+                        <option value="DatumOtvaranja">Datum otvaranja</option>
+                    </select>
+                </div>
+                <br />
+                <input type="submit" name="Option" value="Sort" />
+
+                <div>Naziv:</div><input type="text" name="Naziv" value="" placeholder="Naziv" /><br />
+                <div>Adresa:</div><input type="text" name="Adresa" value="" placeholder="Ulica, Broj, Grad, Postanski broj" /><br />
+                <div>Datum otvaranja:</div><input type="text" name="DonjaGranica" placeholder="DonjaGranica" /><input type="text" name="GornjaGranica" placeholder="GornjaGranica" /><br />
+                <br />
+                <input type="submit" name="Option" value="Find" />
+            </form>
+            @if (ViewBag.FitnessCenters == null || ViewBag.FitnessCenters.Count == 0) {
+                <p>Ne postoji nijedan fitnes centar</p>
+            }
+            else
+            {   
+            <table class="main-table" border="1">
+                <tr><th colspan="4"><h3>Fitnes Centri</h3></th></tr>
+                <tr><th>Naziv</th><th>Adresa</th><th>DatumOtvaranja</th></tr>
+                @foreach(var fitnessCenter in ViewBag.FitnessCenters)
+                            {
+                                <tr><td>@fitnessCenter.Naziv</td><td>@fitnessCenter.Adresa</td><td>@fitnessCenter.DatumOtvaranja</td><td>
+                                    <form action="/Neprijavljen/DetaljanPrikaz" method="post">
+                                    <input type="submit" name="Detalji" value="Detalji">
+                                    <input type="hidden" name="Naziv" value="@fitnessCenter.Naziv">
+                                    </form>
+                                    </td>
+                                </tr>
+                            }
+            </table>
+            }
+        </div> 
+    </main>
+</body>

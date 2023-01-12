@@ -10,7 +10,7 @@ namespace FitnesCentar.Models
     {
         public string Username { get; set; } //Treba da je jedinstveno
         public string Password { get; set; }
-        public string Name { get; set; }
+        public string Naziv { get; set; }
         public string Surname { get; set; }
         public string Gender { get; set; }
         public string Email { get; set; }
@@ -26,7 +26,7 @@ namespace FitnesCentar.Models
         {
             Username = userName;
             Password = lozinka;
-            Name = ime;
+            Naziv = ime;
             Surname = prezime;
             Gender = pol;
             Email = email;

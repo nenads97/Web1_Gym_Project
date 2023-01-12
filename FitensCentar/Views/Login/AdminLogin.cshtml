@@ -26,21 +26,21 @@
 <br />
 <br />
 <form method="post" action="/Login/AdminLogin">
-    <div>Sort:</div>
-    RASTUCE <br /><input type="radio" name="typeOfSorting" value="ASCENDING" /> <br />
-    OPADAJUCE <br /><input type="radio" name="typeOfSorting" value="DESCENDING" />
+    <div>Sortiranje:</div>
+    RASTUCE <br /><input type="radio" name="typeOfSorting" value="Rastuće" /> <br />
+    OPADAJUCE <br /><input type="radio" name="typeOfSorting" value="Opadajuće" />
     <select class="form-control" name="sortBy" required>
-        <option value="Name"> NAZIV</option>
-        <option value="Adress"> ADRESA</option>
-        <option value="OpeningDate">DATUM OTVARANJA</option>
+        <option value="Naziv"> Naziv</option>
+        <option value="Adresa"> Adresa</option>
+        <option value="DatumOtvaranja">Datum otvaranja</option>
     </select>
     <br />
     <input type="hidden" value="@ViewBag.user_name" name="Username" />
     <input class="form-control" type="submit" name="Option" value="Sort" />
     <br />
-    <div>Name:</div><input class="form-control" type="text" name="Name" value="" placeholder="Name" /><br />
-    <div>Adress:</div><input class="form-control" type="text" name="Adress" value="" placeholder="ulica broj,grad,postanski broj" /><br />
-    <div>Opening Date:</div><input class="form-control" type="text" name="LowerLimit" placeholder="LowerLimit" /><br /><input class="form-control" type="text" name="UpperLimit" placeholder="UpperLimit" /><br />
+    <div>Naziv:</div><input class="form-control" type="text" name="Naziv" value="" placeholder="Naziv" /><br />
+    <div>Adresa:</div><input class="form-control" type="text" name="Adresa" value="" placeholder="ulica broj,grad,postanski broj" /><br />
+    <div>Datum otvaranja:</div><input class="form-control" type="text" name="DonjaGranica" placeholder="DonjaGranica" /><br /><input class="form-control" type="text" name="GornjaGranica" placeholder="GornjaGranica" /><br />
     <br />
     <input class="form-control" type="submit" name="Option" value="Find" />
 </form>
@@ -52,19 +52,19 @@ else
 {
     <br />
     <br />
-    <h2>Fitness Centers</h2>
+    <h2>Fitnes Centri</h2>
     <table class="table table-bordered" border="1">
-        <tr><th>Name</th><th>Adress</th><th>OpeningDate</th></tr>
+        <tr><th>Naziv</th><th>Adresa</th><th>DatumOtvaranja</th></tr>
         @foreach (var fitnessCenter in ViewBag.FitnessCenters)
         {
             <tr>
-                <td>@fitnessCenter.Name</td>
-                <td>@fitnessCenter.Adress</td>
-                <td>@fitnessCenter.OpeningDate</td>
+                <td>@fitnessCenter.Naziv</td>
+                <td>@fitnessCenter.Adresa</td>
+                <td>@fitnessCenter.DatumOtvaranja</td>
                 <td>
                     <form action="/Vlasnik/DetaljanPrikazVlasnik" method="post">
                         <input type="submit" name="Detalji" value="Detalji">
-                        <input type="hidden" name="Name" value="@fitnessCenter.Name">
+                        <input type="hidden" name="Naziv" value="@fitnessCenter.Naziv">
                         <input type="hidden" name="Username" value="@ViewBag.user_name">
                     </form>
                 </td>

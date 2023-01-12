@@ -60,42 +60,42 @@ namespace FitnesCentar.Controllers
             {
                 fitnessCenter.AdminUsername = Username;              
                 users.SaveFitnessCenterIntoDatabase(fitnessCenter);              
-                MessageBox.Show($"Uspesno dodat {fitnessCenter.Name}");
+                MessageBox.Show($"Uspesno dodat {fitnessCenter.Naziv}");
                 Session["users"] = users;
             }
             else if(Option == "Obrisi")
             {
-                if (!users.CheckFutureTrainingsFitnessCenter(fitnessCenter.Name))
+                if (!users.CheckFutureTrainingsFitnessCenter(fitnessCenter.Naziv))
                 {
-                    users.DeleteFitnessCenter(fitnessCenter.Name, fitnessCenter.AdminUsername);
-                    MessageBox.Show($"Uspesno obrisan {fitnessCenter.Name}");
+                    users.DeleteFitnessCenter(fitnessCenter.Naziv, fitnessCenter.AdminUsername);
+                    MessageBox.Show($"Uspesno obrisan {fitnessCenter.Naziv}");
                     Session["users"] = users;
                 }
                 else
                 {
-                    MessageBox.Show($"{fitnessCenter.Name} ima treninge u buducnosti");
+                    MessageBox.Show($"{fitnessCenter.Naziv} ima treninge u buducnosti");
                 }
                 
             }
             else if(Option == "Izmeni")
             {
                 users.ChangeFitnessCenter(fitnessCenter);
-                MessageBox.Show($"Uspesno izmenjen {fitnessCenter.Name}");
+                MessageBox.Show($"Uspesno izmenjen {fitnessCenter.Naziv}");
                 Session["users"] = users;
             }
             ViewBag.FitnessCenters = users.FitnessCentersOfAdmin2(Username);
             ViewBag.user_name = Username;
             return View();
         }
-        public ActionResult DetaljanPrikazVlasnik(string Name,string Username)
+        public ActionResult DetaljanPrikazVlasnik(string Naziv,string Username)
         {
             Users users = (Users)Session["users"];
             FitnessCenter fitnessCenter = new FitnessCenter();
             ViewBag.user_name = Username;
-            users.fitnessCenters.TryGetValue(Name, out fitnessCenter);
+            users.fitnessCenters.TryGetValue(Naziv, out fitnessCenter);
             ViewBag.FitnessCenter = fitnessCenter;
-            ViewBag.GroupTrainings = users.GroupTrainingsOfFitnessCenter(Name);
-            ViewBag.Komentari = users.ListOfComments(Name);
+            ViewBag.GroupTrainings = users.GroupTrainingsOfFitnessCenter(Naziv);
+            ViewBag.Komentari = users.ListOfComments(Naziv);
             return View();
         }
         

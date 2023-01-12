@@ -20,23 +20,23 @@
     <input type="submit" value="Zavrseni treninzi" />
 </form>
 <form method="post" action="/Login/TrainerLogin">
-    <div>Sort:</div>
-    <input type="radio" name="typeOfSorting" value="ASCENDING" />RASTUCE <br/>
-    <input type="radio" name="typeOfSorting" value="DESCENDING" />OPADAJUCE <br/>
+    <div>Sortiranje:</div>
+    <input type="radio" name="typeOfSorting" value="Rastuće" />RASTUCE <br/>
+    <input type="radio" name="typeOfSorting" value="Opadajuće" />OPADAJUCE <br/>
 
     <select name="sortBy" required>
-        <option value="Name"> NAZIV</option>
-        <option value="Adress"> ADRESA</option>
-        <option value="OpeningDate">DATUM OTVARANJA</option>
+        <option value="Naziv"> Naziv</option>
+        <option value="Adresa"> Adresa</option>
+        <option value="DatumOtvaranja">Datum otvaranja</option>
     </select>
     <br />
     <input type="hidden" value="@ViewBag.user_name" name="Username" />
     <br/>
     <input type="submit" name="Option" value="Sort" />
 
-    <div>Name:</div><input type="text" name="Name" value="" placeholder="Name"/><br />
-    <div>Adress:</div><input type="text" name="Adress" value="" placeholder="Ulica broj,grad,postanski broj" /><br />
-    <div>Opening Date:</div><input type="text" name="LowerLimit" placeholder="LowerLimit" /><input type="text" name="UpperLimit" placeholder="UpperLimit" /><br />
+    <div>Naziv:</div><input type="text" name="Naziv" value="" placeholder="Naziv"/><br />
+    <div>Adresa:</div><input type="text" name="Adresa" value="" placeholder="Ulica broj,grad,postanski broj" /><br />
+    <div>Datum otvaranja:</div><input type="text" name="DonjaGranica" placeholder="DonjaGranica" /><input type="text" name="GornjaGranica" placeholder="GornjaGranica" /><br />
     <br />
     <input type="submit" name="Option" value="Find" />
 </form>
@@ -46,19 +46,19 @@
 }
 else
 {
-    <p>Fitness Centers</p>
+    <p>Fitnes Centri</p>
     <table border="1">
-        <tr><th>Name</th><th>Adress</th><th>OpeningDate</th></tr>
+        <tr><th>Naziv</th><th>Adresa</th><th>DatumOtvaranja</th></tr>
         @foreach (var fitnessCenter in ViewBag.FitnessCenters)
         {
             <tr>
-                <td>@fitnessCenter.Name</td>
-                <td>@fitnessCenter.Adress</td>
-                <td>@fitnessCenter.OpeningDate</td>
+                <td>@fitnessCenter.Naziv</td>
+                <td>@fitnessCenter.Adresa</td>
+                <td>@fitnessCenter.DatumOtvaranja</td>
                 <td>
                     <form action="/Trainer/DetaljanPrikazTrener" method="post">
                         <input type="submit" name="Detalji" value="Detalji">
-                        <input type="hidden" name="Name" value="@fitnessCenter.Name">
+                        <input type="hidden" name="Naziv" value="@fitnessCenter.Naziv">
                         <input type="hidden" name="Username" value="@ViewBag.user_name">
                     </form>
                 </td>

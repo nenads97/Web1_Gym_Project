@@ -13,7 +13,7 @@
 </form>
 <form action="/Trainer/PredstojeciTreninziTrener" method="post">
     <table border="1">
-        <tr><td>Name:</td><td><input type="text" name="Name" placeholder="Name" required /></td></tr>
+        <tr><td>Naziv:</td><td><input type="text" name="Naziv" placeholder="Naziv" required /></td></tr>
         <tr><td>TypeOfTraining:</td><td><select name="Trening">
                                                 <option value="YOGA">YOGA</option>
                                                 <option value="BODYPUMP">BODYPUMP</option>
@@ -51,7 +51,7 @@ else
         {
             <form action="/Trainer/PredstojeciTreninziTrener" method="post">
                 <table border="1">
-                    <tr><td>Name:</td><td>@groupTraining.Name</td></tr>
+                    <tr><td>Naziv:</td><td>@groupTraining.Naziv</td></tr>
                     <tr>
                         <td>TypeOfTraining:</td>
                         <td>
@@ -118,9 +118,9 @@ else
                         {
                             <td>
                                 <ol>
-                                    @if (ViewBag.Posetioci.ContainsKey(groupTraining.Name))
+                                    @if (ViewBag.Posetioci.ContainsKey(groupTraining.Naziv))
                                     {
-                                        foreach (var s in ViewBag.Posetioci[groupTraining.Name])
+                                        foreach (var s in ViewBag.Posetioci[groupTraining.Naziv])
                                         {
                                             <li>@s</li>
                                         }
@@ -136,7 +136,7 @@ else
                         <td>
                             <input type="submit" name="Option" value="Obrisi" />
                             <input type="submit" name="Option" value="Izmeni" />
-                            <input type="hidden" name="Name" value="@groupTraining.Name" />
+                            <input type="hidden" name="Naziv" value="@groupTraining.Naziv" />
                             <input type="hidden" name="FitnessCenterName" value="@groupTraining.FitnessCenterName" />
                             <input type="hidden" name="Username" value="@ViewBag.user_name" />
                         </td>

@@ -8,7 +8,7 @@ namespace FitnesCentar.Models
 {
     public class GroupTraining
     {
-        public string Name { get; set; }
+        public string Naziv { get; set; }
         public TrainingType Trening { get; set; }
         public string FitnessCenterName { get; set; }
         public string TrainingDuration { get; set; } //combobox za ovo,15m 30m,45m,60m
@@ -23,7 +23,7 @@ namespace FitnesCentar.Models
 
         public GroupTraining(string name, TrainingType training, string fitnessCenterName, string trajanjeTreninga, string datumTreninga, int maxBrojPosetilaca,bool deleted)
         {
-            Name = name;
+            Naziv = name;
             Trening = training;
             FitnessCenterName = fitnessCenterName;
             TrainingDuration = trajanjeTreninga;

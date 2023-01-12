@@ -67,7 +67,7 @@ intellisense.annotate(jQuery, {
     /// <signature>
     ///   <summary>Returns value at named podaci store for the element, as set by jQuery.podaci(element, name, value), or the full podaci store for the element.</summary>
     ///   <param name="element" type="Element">The DOM element to query for the podaci.</param>
-    ///   <param name="key" type="String">Name of the podaci stored.</param>
+    ///   <param name="key" type="String">Naziv of the podaci stored.</param>
     ///   <returns type="Object" />
     /// </signature>
     /// <signature>

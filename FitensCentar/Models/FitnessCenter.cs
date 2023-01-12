@@ -7,9 +7,9 @@ namespace FitnesCentar.Models
 {
     public class FitnessCenter
     {
-        public string Name { get; set; }
-        public string Adress { get; set; } // mozda da bude string[], format ulica x broj,mesto/grad,postanski broj
-        public int OpeningDate { get; set; }
+        public string Naziv { get; set; }
+        public string Adresa { get; set; } // mozda da bude string[], format ulica x broj,mesto/grad,postanski broj
+        public int DatumOtvaranja { get; set; }
         public string AdminUsername { get; set; }
         public int MonthlySubscription { get; set; }
         public int YearlySubscription { get; set; }
@@ -25,9 +25,9 @@ namespace FitnesCentar.Models
 
         public FitnessCenter(string name, string adress, int openingDate, string adminUsername, int monthlySubscription, int yearlySubscription, int priceOfOneTraining, int groupTrainingPrice, int personalTrainerPrice, bool deleted)
         {
-            Name = name;
-            Adress = adress;
-            OpeningDate = openingDate;
+            Naziv = name;
+            Adresa = adress;
+            DatumOtvaranja = openingDate;
             AdminUsername = adminUsername;
             MonthlySubscription = monthlySubscription;
             YearlySubscription = yearlySubscription;

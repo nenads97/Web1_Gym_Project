@@ -48,7 +48,7 @@ namespace FitnesCentar.Models
             {
                 using (StreamWriter streamWriter = new StreamWriter(fileStream))
                 {
-                    streamWriter.WriteLine($"{u.Username}?{u.Password}?{u.Name}?{u.Surname}?{u.Gender}?{u.Email}?{u.DateOfBirth}?{u.Role}?{u.Deleted}");
+                    streamWriter.WriteLine($"{u.Username}?{u.Password}?{u.Naziv}?{u.Surname}?{u.Gender}?{u.Email}?{u.DateOfBirth}?{u.Role}?{u.Deleted}");
                     listOfUsers.Add(u.Username, u);
                 }
             }
@@ -92,24 +92,24 @@ namespace FitnesCentar.Models
         {
             WriteLineToFile(
                 HostingEnvironment.MapPath("~/App_Data/FitnessCenters.txt"),
-                $"{fitnessCenter.Name}?{fitnessCenter.Adress}?{fitnessCenter.OpeningDate}?{fitnessCenter.AdminUsername}?{fitnessCenter.MonthlySubscription}?{fitnessCenter.YearlySubscription}?{fitnessCenter.PriceOfOneTraining}?{fitnessCenter.GroupTrainingPrice}?{fitnessCenter.PersonalTrainerPrice}?{fitnessCenter.Deleted}"
+                $"{fitnessCenter.Naziv}?{fitnessCenter.Adresa}?{fitnessCenter.DatumOtvaranja}?{fitnessCenter.AdminUsername}?{fitnessCenter.MonthlySubscription}?{fitnessCenter.YearlySubscription}?{fitnessCenter.PriceOfOneTraining}?{fitnessCenter.GroupTrainingPrice}?{fitnessCenter.PersonalTrainerPrice}?{fitnessCenter.Deleted}"
             );
-            fitnessCenters.Add(fitnessCenter.Name, fitnessCenter);
+            fitnessCenters.Add(fitnessCenter.Naziv, fitnessCenter);
 
             if (!fitnessCentersAdmin.ContainsKey(fitnessCenter.AdminUsername))
             {
                 List<string> nevv = new List<string>();
-                nevv.Add(fitnessCenter.Name);
+                nevv.Add(fitnessCenter.Naziv);
                 fitnessCentersAdmin.Add(fitnessCenter.AdminUsername, nevv);
 
                 WriteLineToFile(
                     HostingEnvironment.MapPath("~/App_Data/FitnessCentersOfAdmin.txt"),
-                    $"{fitnessCenter.AdminUsername}?{fitnessCenter.Name}"
+                    $"{fitnessCenter.AdminUsername}?{fitnessCenter.Naziv}"
                 );
             }
             else
             {
-                fitnessCentersAdmin[fitnessCenter.AdminUsername].Add(fitnessCenter.Name);
+                fitnessCentersAdmin[fitnessCenter.AdminUsername].Add(fitnessCenter.Naziv);
 
                 string path = HostingEnvironment.MapPath("~/App_Data/FitnessCentersOfAdmin.txt");
                 string[] data = ReadLinesFromFile(path, 200, true);
@@ -144,13 +144,13 @@ namespace FitnesCentar.Models
         {
             WriteLineToFile(
                 HostingEnvironment.MapPath("~/App_Data/GroupTrainings.txt"),
-                $"{groupTraining.Name}?{groupTraining.Trening}?{groupTraining.FitnessCenterName}?{groupTraining.TrainingDuration}?{groupTraining.TrainingDate}?{groupTraining.MaximumNumberOfVisitors}?{groupTraining.Deleted}"
+                $"{groupTraining.Naziv}?{groupTraining.Trening}?{groupTraining.FitnessCenterName}?{groupTraining.TrainingDuration}?{groupTraining.TrainingDate}?{groupTraining.MaximumNumberOfVisitors}?{groupTraining.Deleted}"
             );
-            groupTrainings.Add(groupTraining.Name, groupTraining);
+            groupTrainings.Add(groupTraining.Naziv, groupTraining);
 
             if (groupTrainingsTrainer.ContainsKey(Username))
             {
-                groupTrainingsTrainer[Username].Add(groupTraining.Name);
+                groupTrainingsTrainer[Username].Add(groupTraining.Naziv);
 
                 var podaci = ReadLinesFromFile(HostingEnvironment.MapPath("~/App_Data/GroupTrainingsOfTrainer.txt"), 200,true);
 
@@ -177,10 +177,10 @@ namespace FitnesCentar.Models
             else
             {
                 List<string> newList = new List<string>();
-                newList.Add(groupTraining.Name);
+                newList.Add(groupTraining.Naziv);
                 groupTrainingsTrainer.Add(Username, newList);
 
-                WriteLineToFile(HostingEnvironment.MapPath("~/App_Data/GroupTrainingsOfTrainer.txt"), $"{Username}?{groupTraining.Name}");
+                WriteLineToFile(HostingEnvironment.MapPath("~/App_Data/GroupTrainingsOfTrainer.txt"), $"{Username}?{groupTraining.Naziv}");
             }
         }
         public void SaveCommentIntoDatabase(Comment comment)
@@ -239,8 +239,8 @@ namespace FitnesCentar.Models
                 {
                     streamWriter.WriteLine(line);
                 }
-                //Username[0]?Password[1]?Name[2]?Surname[3]?Gender[4]?Email[5]?Date[6]?Role[7]?Deleted(default false)[8]
-                streamWriter.WriteLine($"{newUser.Username}?{newUser.Password}?{newUser.Name}?{newUser.Surname}?{newUser.Gender}?{newUser.Email}?{newUser.DateOfBirth}?{newUser.Role}?{newUser.Deleted}");
+                //Username[0]?Password[1]?Naziv[2]?Surname[3]?Gender[4]?Email[5]?Date[6]?Role[7]?Deleted(default false)[8]
+                streamWriter.WriteLine($"{newUser.Username}?{newUser.Password}?{newUser.Naziv}?{newUser.Surname}?{newUser.Gender}?{newUser.Email}?{newUser.DateOfBirth}?{newUser.Role}?{newUser.Deleted}");
             }
             filestream.Close();
 
@@ -259,7 +259,7 @@ namespace FitnesCentar.Models
             {
 
                 string[] podaci = temporary.Split('?');
-                if (newFitnessCenter.Name != podaci[0])
+                if (newFitnessCenter.Naziv != podaci[0])
                 {
                     lines.Add(temporary);
                 }
@@ -275,12 +275,12 @@ namespace FitnesCentar.Models
                 {
                     streamWriter.WriteLine(line);
                 }
-                //Name[0]?Adress[1]?OpeningDate[2]?Vlasnik[3]?Mesecna[4]?Godisnja[5]?JedanT[6]?Grupni[7]?Personalni[8]?Deleted(default false)[9]
-                streamWriter.WriteLine($"{newFitnessCenter.Name}?{newFitnessCenter.Adress}?{newFitnessCenter.OpeningDate}?{newFitnessCenter.AdminUsername}?{newFitnessCenter.MonthlySubscription}?{newFitnessCenter.YearlySubscription}?{newFitnessCenter.PriceOfOneTraining}?{newFitnessCenter.GroupTrainingPrice}?{newFitnessCenter.PersonalTrainerPrice}?{newFitnessCenter.Deleted}");
+                //Naziv[0]?Adresa[1]?DatumOtvaranja[2]?Vlasnik[3]?Mesecna[4]?Godisnja[5]?JedanT[6]?Grupni[7]?Personalni[8]?Deleted(default false)[9]
+                streamWriter.WriteLine($"{newFitnessCenter.Naziv}?{newFitnessCenter.Adresa}?{newFitnessCenter.DatumOtvaranja}?{newFitnessCenter.AdminUsername}?{newFitnessCenter.MonthlySubscription}?{newFitnessCenter.YearlySubscription}?{newFitnessCenter.PriceOfOneTraining}?{newFitnessCenter.GroupTrainingPrice}?{newFitnessCenter.PersonalTrainerPrice}?{newFitnessCenter.Deleted}");
             }
             filestream.Close();
 
-            fitnessCenters[newFitnessCenter.Name] = newFitnessCenter;        
+            fitnessCenters[newFitnessCenter.Naziv] = newFitnessCenter;        
         }
         public void ChangeGroupTraining(GroupTraining newGroupTraining)
         {
@@ -295,7 +295,7 @@ namespace FitnesCentar.Models
             {
 
                 string[] podaci = temporary.Split('?');
-                if (newGroupTraining.Name != podaci[0])
+                if (newGroupTraining.Naziv != podaci[0])
                 {
                     lines.Add(temporary);
                 }
@@ -311,11 +311,11 @@ namespace FitnesCentar.Models
                 {
                     streamWriter.WriteLine(line);
                 }
-                //Name[0]?Trening[1]?NameOfFitnessCenter[2]?TrainingDuration[3]?TrainingDate[4]?MaxPosetioci[5]?Deleted(default false)[6]
-                streamWriter.WriteLine($"{newGroupTraining.Name}?{newGroupTraining.Trening}?{newGroupTraining.FitnessCenterName}?{newGroupTraining.TrainingDuration}?{newGroupTraining.TrainingDate}?{newGroupTraining.MaximumNumberOfVisitors}?{newGroupTraining.Deleted}");
+                //Naziv[0]?Trening[1]?NameOfFitnessCenter[2]?TrainingDuration[3]?TrainingDate[4]?MaxPosetioci[5]?Deleted(default false)[6]
+                streamWriter.WriteLine($"{newGroupTraining.Naziv}?{newGroupTraining.Trening}?{newGroupTraining.FitnessCenterName}?{newGroupTraining.TrainingDuration}?{newGroupTraining.TrainingDate}?{newGroupTraining.MaximumNumberOfVisitors}?{newGroupTraining.Deleted}");
             }
             filestream.Close();
-            groupTrainings[newGroupTraining.Name] = newGroupTraining;            
+            groupTrainings[newGroupTraining.Naziv] = newGroupTraining;            
         }
         public void ChangeComment(Comment comment, string Username,string Visibility)
         {
@@ -347,7 +347,7 @@ namespace FitnesCentar.Models
                 {
                     streamWriter.WriteLine(line);
                 }
-                //Name[0]?Adress[1]?OpeningDate[2]?Vlasnik[3]?Mesecna[4]?Godisnja[5]?JedanT[6]?Grupni[7]?Personalni[8]?Deleted(default false)[9]
+                //Naziv[0]?Adresa[1]?DatumOtvaranja[2]?Vlasnik[3]?Mesecna[4]?Godisnja[5]?JedanT[6]?Grupni[7]?Personalni[8]?Deleted(default false)[9]
                 streamWriter.WriteLine($"{comment.Username}?{comment.FitnessCenterName}?{comment.CommentText}?{comment.Review}?{Visibility}");
             }
             filestream.Close();
@@ -705,10 +705,10 @@ namespace FitnesCentar.Models
                 User user = new User();
                 if (podaci[8] == "False")
                 {
-                    //Username[0]?Password[1]?Name[2]?Surname[3]?Gender[4]?Email[5]?DateOfBirth[6]?Role[7]?Deleted[8]
+                    //Username[0]?Password[1]?Naziv[2]?Surname[3]?Gender[4]?Email[5]?DateOfBirth[6]?Role[7]?Deleted[8]
                     user.Username = podaci[0];
                     user.Password = podaci[1];
-                    user.Name = podaci[2];
+                    user.Naziv = podaci[2];
                     user.Surname = podaci[3];
                     user.Gender = podaci[4];
                     user.Email = podaci[5];
@@ -753,10 +753,10 @@ namespace FitnesCentar.Models
                 string[] podaci = temporary.Split('?');
                 FitnessCenter fitnessCenter = new FitnessCenter();
                 
-                //Name[0]?Adress[1]?OpeningDate[2]?AdminUsername[3]?Mesecna[4]?Godisnja[5]?JedanTrening[6]?Grupni[7]?Personalni[8]?Deleted[9]?
-                fitnessCenter.Name = podaci[0];
-                fitnessCenter.Adress = podaci[1];
-                fitnessCenter.OpeningDate =  Int32.Parse(podaci[2]);
+                //Naziv[0]?Adresa[1]?DatumOtvaranja[2]?AdminUsername[3]?Mesecna[4]?Godisnja[5]?JedanTrening[6]?Grupni[7]?Personalni[8]?Deleted[9]?
+                fitnessCenter.Naziv = podaci[0];
+                fitnessCenter.Adresa = podaci[1];
+                fitnessCenter.DatumOtvaranja =  Int32.Parse(podaci[2]);
                 fitnessCenter.AdminUsername = podaci[3];
                 fitnessCenter.MonthlySubscription = Int32.Parse(podaci[4]);
                 fitnessCenter.YearlySubscription = Int32.Parse(podaci[5]);
@@ -767,7 +767,7 @@ namespace FitnesCentar.Models
                 if (podaci[9] == "False")
                 {
                     fitnessCenter.Deleted = false;
-                    fitnessCenters.Add(fitnessCenter.Name, fitnessCenter);
+                    fitnessCenters.Add(fitnessCenter.Naziv, fitnessCenter);
                 }
                 else
                 {
@@ -791,8 +791,8 @@ namespace FitnesCentar.Models
                 string[] podaci = temporary.Split('?');
                 GroupTraining groupTraining = new GroupTraining();
 
-                //Name[0]?TypeOfTraining[1]?FitnessCenter[2]TrainingDuration[3]?TrainingDate[4]?MaximumNumberOfVisitors[5]?BrojPrijavljenih[6]?Deleted[7]
-                groupTraining.Name = podaci[0];
+                //Naziv[0]?TypeOfTraining[1]?FitnessCenter[2]TrainingDuration[3]?TrainingDate[4]?MaximumNumberOfVisitors[5]?BrojPrijavljenih[6]?Deleted[7]
+                groupTraining.Naziv = podaci[0];
                 if (podaci[1] == "YOGA")
                 {
                     groupTraining.Trening = TrainingType.YOGA;
@@ -815,7 +815,7 @@ namespace FitnesCentar.Models
                 if (podaci[6] == "False")
                 {
                     groupTraining.Deleted = false;
-                    groupTrainings.Add(groupTraining.Name, groupTraining);
+                    groupTrainings.Add(groupTraining.Naziv, groupTraining);
                 }
                 else
                 {
@@ -980,7 +980,7 @@ namespace FitnesCentar.Models
                 {
                     foreach (var grupniTrening in groupTrainings.Values)
                     {
-                        if (grupniTrening.Name == s)
+                        if (grupniTrening.Naziv == s)
                         {
                             groupTraining.Add(grupniTrening);
                             break;
@@ -1018,48 +1018,48 @@ namespace FitnesCentar.Models
         {
             List<FitnessCenter> fitnessCenter = new List<FitnessCenter>();           
             fitnessCenter = fitnessCenters.Values.ToList();
-            if (typeOfSorting == "ASCENDING")
+            if (typeOfSorting == "Rastuće")
             {
-                if(sortBy == "Name")
+                if(sortBy == "Naziv")
                 {
-                    fitnessCenter.Sort((x, y) => x.Name.CompareTo(y.Name));
+                    fitnessCenter.Sort((x, y) => x.Naziv.CompareTo(y.Naziv));
                 }
-                else if(sortBy == "Adress")
+                else if(sortBy == "Adresa")
                 {
-                    //fitnessCenter.Sort((x, y) => x.Adress.Split(',')[1].CompareTo(y.Adress.Split(',')[1]));
-                    fitnessCenter.Sort((x, y) => x.Adress.CompareTo(y.Adress));
+                    //fitnessCenter.Sort((x, y) => x.Adresa.Split(',')[1].CompareTo(y.Adresa.Split(',')[1]));
+                    fitnessCenter.Sort((x, y) => x.Adresa.CompareTo(y.Adresa));
                 }
-                else if(sortBy == "OpeningDate")
+                else if(sortBy == "DatumOtvaranja")
                 {
-                    fitnessCenter.Sort((x, y) => x.OpeningDate.CompareTo(y.OpeningDate));
+                    fitnessCenter.Sort((x, y) => x.DatumOtvaranja.CompareTo(y.DatumOtvaranja));
                 }
                
             }
-            else if(typeOfSorting == "DESCENDING")
+            else if(typeOfSorting == "Opadajuće")
             {
                
-                if (sortBy == "Name")
+                if (sortBy == "Naziv")
                 {
-                    fitnessCenter.Sort((x, y) => y.Name.CompareTo(x.Name));
+                    fitnessCenter.Sort((x, y) => y.Naziv.CompareTo(x.Naziv));
                 }
-                else if (sortBy == "Adress")
+                else if (sortBy == "Adresa")
                 {
-                   //fitnessCenter.Sort((x, y) => y.Adress.Split(',')[1].CompareTo(x.Adress.Split(',')[1]));
-                   fitnessCenter.Sort((x, y) => y.Adress.CompareTo(x.Adress));
+                   //fitnessCenter.Sort((x, y) => y.Adresa.Split(',')[1].CompareTo(x.Adresa.Split(',')[1]));
+                   fitnessCenter.Sort((x, y) => y.Adresa.CompareTo(x.Adresa));
                 }
-                else if (sortBy == "OpeningDate")
+                else if (sortBy == "DatumOtvaranja")
                 {
-                    fitnessCenter.Sort((x, y) => y.OpeningDate.CompareTo(x.OpeningDate));
+                    fitnessCenter.Sort((x, y) => y.DatumOtvaranja.CompareTo(x.DatumOtvaranja));
                 }
             }
             else
             {
-                fitnessCenter.Sort((x, y) => x.Name.CompareTo(y.Name));
+                fitnessCenter.Sort((x, y) => x.Naziv.CompareTo(y.Naziv));
             }
             
             return fitnessCenter;
         } 
-        public List<FitnessCenter> FitnessCenterSearch(string Name,string Adress,string LowerLimit,string UpperLimit)
+        public List<FitnessCenter> FitnessCenterSearch(string Naziv,string Adresa,string DonjaGranica,string GornjaGranica)
         {
             List<FitnessCenter> centers = new List<FitnessCenter>();
             List<FitnessCenter> newFitnessCenter = new List<FitnessCenter>();
@@ -1068,30 +1068,30 @@ namespace FitnesCentar.Models
             
             foreach(var fitnessCenter in centers)
             {
-                if (!string.IsNullOrEmpty(Name))
+                if (!string.IsNullOrEmpty(Naziv))
                 {
-                    if(!(fitnessCenter.Name == Name))
+                    if(!(fitnessCenter.Naziv == Naziv))
                     {
                         continue;
                     }
                 }
-                if (!string.IsNullOrEmpty(Adress))
+                if (!string.IsNullOrEmpty(Adresa))
                 {
-                    if (!(fitnessCenter.Adress.Contains(Adress)))
+                    if (!(fitnessCenter.Adresa.Contains(Adresa)))
                     {
                         continue;
                     }
                 }
-                if (!string.IsNullOrEmpty(LowerLimit))
+                if (!string.IsNullOrEmpty(DonjaGranica))
                 {
-                    if ((fitnessCenter.OpeningDate < Int32.Parse(LowerLimit)))
+                    if ((fitnessCenter.DatumOtvaranja < Int32.Parse(DonjaGranica)))
                     {
                         continue;
                     }
                 }
-                if (!string.IsNullOrEmpty(UpperLimit))
+                if (!string.IsNullOrEmpty(GornjaGranica))
                 {
-                    if ((fitnessCenter.OpeningDate > Int32.Parse(UpperLimit)))
+                    if ((fitnessCenter.DatumOtvaranja > Int32.Parse(GornjaGranica)))
                     {
                         continue;
                     }
@@ -1113,11 +1113,11 @@ namespace FitnesCentar.Models
                 groupTraining = GroupTrainingsOfTrainer(Username);
             }
             
-            if (typeOfSorting == "ASCENDING")
+            if (typeOfSorting == "Rastuće")
             {
-                if (sortBy == "Name")
+                if (sortBy == "Naziv")
                 {
-                    groupTraining.Sort((x, y) => x.Name.CompareTo(y.Name));
+                    groupTraining.Sort((x, y) => x.Naziv.CompareTo(y.Naziv));
                 }
                 else if (sortBy == "TypeOfTraining")
                 {
@@ -1130,12 +1130,12 @@ namespace FitnesCentar.Models
                 }
 
             }
-            else if (typeOfSorting == "DESCENDING")
+            else if (typeOfSorting == "Opadajuće")
             {
 
-                if (sortBy == "Name")
+                if (sortBy == "Naziv")
                 {
-                    groupTraining.Sort((x, y) => y.Name.CompareTo(x.Name));
+                    groupTraining.Sort((x, y) => y.Naziv.CompareTo(x.Naziv));
                 }
                 else if (sortBy == "TypeOfTraining")
                 {
@@ -1148,12 +1148,12 @@ namespace FitnesCentar.Models
             }
             else
             {
-                groupTraining.Sort((x, y) => x.Name.CompareTo(y.Name));
+                groupTraining.Sort((x, y) => x.Naziv.CompareTo(y.Naziv));
             }
 
             return groupTraining;
         }
-        public List<GroupTraining> GroupTrainingSearch(string Name, string TypeOfTraining, string LowerLimit, string UpperLimit,string Username)
+        public List<GroupTraining> GroupTrainingSearch(string Naziv, string TypeOfTraining, string DonjaGranica, string GornjaGranica,string Username)
         {
             List<GroupTraining> trainings = new List<GroupTraining>();
             List<GroupTraining> newGroupTraining = new List<GroupTraining>();
@@ -1169,9 +1169,9 @@ namespace FitnesCentar.Models
 
             foreach (var groupTraining in trainings)
             {
-                if (!string.IsNullOrEmpty(Name))
+                if (!string.IsNullOrEmpty(Naziv))
                 {
-                    if (!(groupTraining.Name == Name))
+                    if (!(groupTraining.Naziv == Naziv))
                     {
                         continue;
                     }
@@ -1183,16 +1183,16 @@ namespace FitnesCentar.Models
                         continue;
                     }
                 }
-                if (!string.IsNullOrEmpty(LowerLimit))
+                if (!string.IsNullOrEmpty(DonjaGranica))
                 {
-                    if ((DateTime.Parse(groupTraining.TrainingDate) < DateTime.Parse(LowerLimit)))
+                    if ((DateTime.Parse(groupTraining.TrainingDate) < DateTime.Parse(DonjaGranica)))
                     {
                         continue;
                     }
                 }
-                if (!string.IsNullOrEmpty(UpperLimit))
+                if (!string.IsNullOrEmpty(GornjaGranica))
                 {
-                    if ((DateTime.Parse(groupTraining.TrainingDate) > DateTime.Parse(UpperLimit)))
+                    if ((DateTime.Parse(groupTraining.TrainingDate) > DateTime.Parse(GornjaGranica)))
                     {
                         continue;
                     }
@@ -1347,7 +1347,7 @@ namespace FitnesCentar.Models
                 groupTrainingsVisitor.Add(Username, newList);
                 FileStream fileStream = new FileStream(path, FileMode.Append);
                 StreamWriter streamWriter = new StreamWriter(fileStream);
-                //Username[0]?Name[1]
+                //Username[0]?Naziv[1]
                 streamWriter.WriteLine($"{Username}?{NameOfGroupTraining}");
 
                 streamWriter.Close();
@@ -1406,7 +1406,7 @@ namespace FitnesCentar.Models
                 path = HostingEnvironment.MapPath(path);
                 FileStream fileStream = new FileStream(path, FileMode.Append);
                 StreamWriter streamWriter = new StreamWriter(fileStream);
-                //Username[0]?Name[1]
+                //Username[0]?Naziv[1]
                 streamWriter.WriteLine($"{NameOfGroupTraining}?{Username}");
 
                 streamWriter.Close();
@@ -1442,7 +1442,7 @@ namespace FitnesCentar.Models
             {
                 foreach(var tr in list)
                 {
-                    if(tr.Name == nameOfGroupTraining)
+                    if(tr.Naziv == nameOfGroupTraining)
                     {
                         return true;
                     }

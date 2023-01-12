@@ -54,9 +54,9 @@
     <h2>FitnesCentriVlasnik</h2>
     <form action="/Vlasnik/FitnesCentriVlasnik" method="post">
         <table class="table table-bordered" border="1">
-            <tr><td class="description">Name:</td><td class="content-value"><input  type="text" name="Name" placeholder="Name" required /></td></tr>
-            <tr><td class="description">Adress:</td><td class="content-value"><input type="text" name="Adress" placeholder="ulicabroj/grad/postanski broj" required /></td></tr>
-            <tr><td class="description">OpeningDate:</td><td class="content-value"><input  type="number" name="OpeningDate" placeholder="OpeningDate" required /></td></tr>
+            <tr><td class="description">Naziv:</td><td class="content-value"><input  type="text" name="Naziv" placeholder="Naziv" required /></td></tr>
+            <tr><td class="description">Adresa:</td><td class="content-value"><input type="text" name="Adresa" placeholder="ulicabroj/grad/postanski broj" required /></td></tr>
+            <tr><td class="description">DatumOtvaranja:</td><td class="content-value"><input  type="number" name="DatumOtvaranja" placeholder="DatumOtvaranja" required /></td></tr>
             <tr><td class="description">MonthlySubscription:</td><td class="content-value"><input  type="number" name="MonthlySubscription" placeholder="Mesecna" required /></td></tr>
             <tr><td class="description">YearlySubscription:</td><td class="content-value"><input  type="number" name="YearlySubscription" placeholder="Godisnja" required /></td></tr>
             <tr><td class="description">PriceOfOneTraining:</td><td class="content-value"><input  type="number" name="PriceOfOneTraining" placeholder="JedanTrening" required /></td></tr>
@@ -83,9 +83,9 @@
         {
             <form action="/Vlasnik/FitnesCentriVlasnik" method="post">
                 <table class="table table-bordered" border="1">
-                    <tr><td class="description">Name:</td><td>@fitnessCenter.Name</td></tr>
-                    <tr><td class="description">Adress:</td><td class="description"><input type="text" name="Adress" value="@fitnessCenter.Adress" required /></td></tr>
-                    <tr><td class="description">OpeningDate:</td><td class="description"><input type="number" name="OpeningDate" value="@fitnessCenter.OpeningDate" required /></td></tr>
+                    <tr><td class="description">Naziv:</td><td>@fitnessCenter.Naziv</td></tr>
+                    <tr><td class="description">Adresa:</td><td class="description"><input type="text" name="Adresa" value="@fitnessCenter.Adresa" required /></td></tr>
+                    <tr><td class="description">DatumOtvaranja:</td><td class="description"><input type="number" name="DatumOtvaranja" value="@fitnessCenter.DatumOtvaranja" required /></td></tr>
                     <tr><td class="description">MonthlySubscription:</td><td class="description"><input type="number" name="MonthlySubscription" value="@fitnessCenter.MonthlySubscription" required /></td></tr>
                     <tr><td class="description">YearlySubscription:</td><td class="description"><input type="number" name="YearlySubscription" value="@fitnessCenter.YearlySubscription" required /></td></tr>
                     <tr><td class="description">PriceOfOneTraining:</td><td class="description"><input type="number" name="PriceOfOneTraining" value="@fitnessCenter.PriceOfOneTraining" required /></td></tr>
@@ -95,7 +95,7 @@
                         <td colspan="2">
                             <input type="submit" class="btn-danger" name="Option" value="Obrisi" />
                             <input type="submit" class="btn-warning" name="Option" value="Izmeni" />
-                            <input type="hidden" name="Name" value="@fitnessCenter.Name" />
+                            <input type="hidden" name="Naziv" value="@fitnessCenter.Naziv" />
                             <input type="hidden" name="AdminUsername" value="@fitnessCenter.AdminUsername" />
                             <input type="hidden" name="Username" value="@ViewBag.user_name" />
                         </td>

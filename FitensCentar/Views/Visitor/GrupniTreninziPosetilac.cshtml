@@ -13,12 +13,12 @@
 </form>
 
 <form method="post" action="/Visitor/GrupniTreninziPosetilac">
-    <div>Sort:</div>
-    <input type="radio" name="typeOfSorting" value="ASCENDING" />RASTUCE <br/>
-    <input type="radio" name="typeOfSorting" value="DESCENDING" />OPADAJUCE <br/>
+    <div>Sortiranje:</div>
+    <input type="radio" name="typeOfSorting" value="Rastuće" />RASTUCE <br/>
+    <input type="radio" name="typeOfSorting" value="Opadajuće" />OPADAJUCE <br/>
 
     <select name="sortBy" required>
-        <option value="Name"> NAZIV</option>
+        <option value="Naziv"> Naziv</option>
         <option value="TypeOfTraining"> TIP TRENINGA</option>
         <option value="DateOfMaintenance">DATUM ODRZAVANJA</option>
     </select>
@@ -27,14 +27,14 @@
     <input type="submit" name="Option" value="Sort" />
 
 
-    <div>Name:</div><input type="text" name="Name" value="" /><br />
+    <div>Naziv:</div><input type="text" name="Naziv" value="" /><br />
     <div>TypeOfTraining:</div><select name="TypeOfTraining">
                                 <option value=""></option>
                                 <option value="YOGA">YOGA</option>
                                 <option value="BODYPUMP">BODYPUMP</option>
                                 <option value="LESMILLSTONE">LESMILLSTONE</option>
                             </select><br />
-    <div>Date Of Maintenance(yyyy/mm/dd HH:mm):</div><input type="text" name="LowerLimit" placeholder="LowerLimit" /><input type="text" name="UpperLimit" placeholder="UpperLimit" /><br />
+    <div>Date Of Maintenance(yyyy/mm/dd HH:mm):</div><input type="text" name="DonjaGranica" placeholder="DonjaGranica" /><input type="text" name="GornjaGranica" placeholder="GornjaGranica" /><br />
     <br />
     <input type="submit" name="Option" value="Find" />
 
@@ -50,7 +50,7 @@
         if (dt < DateTime.Now)
         {
             <table border="1">
-                <tr><td>Name:</td><td>@t.Name</td></tr>
+                <tr><td>Naziv:</td><td>@t.Naziv</td></tr>
                 <tr><td>TypeOfTraining:</td><td>@t.Trening</td></tr>
                 <tr><td>FitnessCenter:</td><td>@t.FitnessCenterName</td></tr>
                 <tr><td>TrainingDuration:</td><td>@t.TrainingDuration</td></tr>

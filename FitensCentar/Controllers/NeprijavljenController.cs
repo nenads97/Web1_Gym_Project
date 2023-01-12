@@ -12,7 +12,7 @@ namespace FitnesCentar.Controllers
     public class NeprijavljenController : Controller
     {
         // GET: Unregistred
-        public ActionResult PocetnaNeprijavljeni(string Option, string typeOfSorting, string sortBy, string Name, string Adress, string LowerLimit, string UpperLimit)
+        public ActionResult PocetnaNeprijavljeni(string Option, string typeOfSorting, string sortBy, string Naziv, string Adresa, string DonjaGranica, string GornjaGranica)
         {
             if(Session["users"] == null)
             {
@@ -26,23 +26,23 @@ namespace FitnesCentar.Controllers
             else if (Option == "Find")
             {
                 int number = 0;
-                if (LowerLimit == "" && UpperLimit == "")
+                if (DonjaGranica == "" && GornjaGranica == "")
                 {
-                    if (Name == "" && Adress == "")
+                    if (Naziv == "" && Adresa == "")
                     {
                         ViewBag.FitnessCenters = users.FitnesCenterSorting("", "");
                     }
                     else
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
 
                 }
-                else if (LowerLimit != "" && UpperLimit == "")
+                else if (DonjaGranica != "" && GornjaGranica == "")
                 {
-                    if (Int32.TryParse(LowerLimit, out number))
+                    if (Int32.TryParse(DonjaGranica, out number))
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     else
                     {
@@ -50,11 +50,11 @@ namespace FitnesCentar.Controllers
                         System.Windows.MessageBox.Show("You must enter a number za DonjuGranicu");
                     }
                 }
-                else if (LowerLimit == "" && UpperLimit != "")
+                else if (DonjaGranica == "" && GornjaGranica != "")
                 {
-                    if (Int32.TryParse(UpperLimit, out number))
+                    if (Int32.TryParse(GornjaGranica, out number))
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     else
                     {
@@ -62,11 +62,11 @@ namespace FitnesCentar.Controllers
                         System.Windows.MessageBox.Show("You must enter a number za GornjuGranicu");
                     }
                 }
-                else if (LowerLimit != "" && UpperLimit != "")
+                else if (DonjaGranica != "" && GornjaGranica != "")
                 {
-                    if (Int32.TryParse(LowerLimit, out number) && Int32.TryParse(UpperLimit, out number) && LowerLimit != "")
+                    if (Int32.TryParse(DonjaGranica, out number) && Int32.TryParse(GornjaGranica, out number) && DonjaGranica != "")
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     else
                     {
@@ -84,14 +84,14 @@ namespace FitnesCentar.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult DetaljanPrikaz(string Name)
+        public ActionResult DetaljanPrikaz(string Naziv)
         {
             Users users = (Users)Session["users"];
             FitnessCenter fitnessCenter = new FitnessCenter();
-            users.fitnessCenters.TryGetValue(Name, out fitnessCenter);
+            users.fitnessCenters.TryGetValue(Naziv, out fitnessCenter);
             ViewBag.FitnessCenter = fitnessCenter;
-            ViewBag.GroupTrainings = users.GroupTrainingsOfFitnessCenter(Name);
-            ViewBag.Komentari = users.ListOfComments(Name);
+            ViewBag.GroupTrainings = users.GroupTrainingsOfFitnessCenter(Naziv);
+            ViewBag.Komentari = users.ListOfComments(Naziv);
             return View();
         }        
         public ActionResult Registracija()

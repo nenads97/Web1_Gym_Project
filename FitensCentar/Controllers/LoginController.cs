@@ -52,7 +52,7 @@ namespace FitnesCentar.Controllers
             }
             
         }
-        public ActionResult UserLogin(string Username,string Option,string typeOfSorting,string sortBy,string Name,string Adress,string LowerLimit,string UpperLimit)
+        public ActionResult UserLogin(string Username,string Option,string typeOfSorting,string sortBy,string Naziv,string Adresa,string DonjaGranica,string GornjaGranica)
         {
             Users users = (Users)Session["users"];         
             if (Option == "Sort")
@@ -62,47 +62,47 @@ namespace FitnesCentar.Controllers
             else if(Option == "Find")
             {
                 int number = 0;
-                if (LowerLimit == "" && UpperLimit == "")
+                if (DonjaGranica == "" && GornjaGranica == "")
                 {
-                    if (Name == "" && Adress =="")
+                    if (Naziv == "" && Adresa =="")
                     {
                         ViewBag.FitnessCenters = users.FitnesCenterSorting("","");
                     }
                     else
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     
                 }
-                else if(LowerLimit != "" && UpperLimit == "")
+                else if(DonjaGranica != "" && GornjaGranica == "")
                 {
-                    if (Int32.TryParse(LowerLimit, out number))
+                    if (Int32.TryParse(DonjaGranica, out number))
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     else
                     {
                         ViewBag.FitnessCenters = users.FitnesCenterSorting("", "");
-                        MessageBox.Show("You must enter number for LowerLimit");
+                        MessageBox.Show("You must enter number for DonjaGranica");
                     }
                 }
-                else if (LowerLimit == "" && UpperLimit != "")
+                else if (DonjaGranica == "" && GornjaGranica != "")
                 {
-                    if (Int32.TryParse(UpperLimit, out number))
+                    if (Int32.TryParse(GornjaGranica, out number))
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     else
                     {
                         ViewBag.FitnessCenters = users.FitnesCenterSorting("", "");
-                        MessageBox.Show("You must enter number for UpperLimit");
+                        MessageBox.Show("You must enter number for GornjaGranica");
                     }
                 }
-                else if(LowerLimit != "" && UpperLimit != "")
+                else if(DonjaGranica != "" && GornjaGranica != "")
                 {
-                    if (Int32.TryParse(LowerLimit, out number) && Int32.TryParse(UpperLimit, out number))
+                    if (Int32.TryParse(DonjaGranica, out number) && Int32.TryParse(GornjaGranica, out number))
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     else
                     {
@@ -121,7 +121,7 @@ namespace FitnesCentar.Controllers
             //ViewBag.FitnessCenters = users.SortirajPoNazivuFC("Rastuci");          
             return View();
         }
-        public ActionResult TrainerLogin(string Username, string Option, string typeOfSorting, string sortBy, string Name, string Adress, string LowerLimit, string UpperLimit)
+        public ActionResult TrainerLogin(string Username, string Option, string typeOfSorting, string sortBy, string Naziv, string Adresa, string DonjaGranica, string GornjaGranica)
         {           
             Users users = (Users)Session["users"];
             if (!users.UserNameCheck(Username))
@@ -135,23 +135,23 @@ namespace FitnesCentar.Controllers
             else if (Option == "Find")
             {
                 int number = 0;
-                if (LowerLimit == "" && UpperLimit == "")
+                if (DonjaGranica == "" && GornjaGranica == "")
                 {
-                    if (Name == "" && Adress == "")
+                    if (Naziv == "" && Adresa == "")
                     {
                         ViewBag.FitnessCenters = users.FitnesCenterSorting("", "");
                     }
                     else
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
 
                 }
-                else if (LowerLimit != "" && UpperLimit == "")
+                else if (DonjaGranica != "" && GornjaGranica == "")
                 {
-                    if (Int32.TryParse(LowerLimit, out number))
+                    if (Int32.TryParse(DonjaGranica, out number))
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     else
                     {
@@ -159,11 +159,11 @@ namespace FitnesCentar.Controllers
                         MessageBox.Show("Morate uneti broj za DonjuGranicu");
                     }
                 }
-                else if (LowerLimit == "" && UpperLimit != "")
+                else if (DonjaGranica == "" && GornjaGranica != "")
                 {
-                    if (Int32.TryParse(UpperLimit, out number))
+                    if (Int32.TryParse(GornjaGranica, out number))
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     else
                     {
@@ -171,11 +171,11 @@ namespace FitnesCentar.Controllers
                         MessageBox.Show("Morate uneti broj za GornjuGranicu");
                     }
                 }
-                else if (LowerLimit != "" && UpperLimit != "")
+                else if (DonjaGranica != "" && GornjaGranica != "")
                 {
-                    if (Int32.TryParse(LowerLimit, out number) && Int32.TryParse(UpperLimit, out number) && LowerLimit != "")
+                    if (Int32.TryParse(DonjaGranica, out number) && Int32.TryParse(GornjaGranica, out number) && DonjaGranica != "")
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     else
                     {
@@ -194,7 +194,7 @@ namespace FitnesCentar.Controllers
            // ViewBag.FitnessCenters = users.SortirajPoNazivuFC("Rastuci");
             return View();
         }
-        public ActionResult AdminLogin(string Username, string Option, string typeOfSorting, string sortBy, string Name, string Adress, string LowerLimit, string UpperLimit)
+        public ActionResult AdminLogin(string Username, string Option, string typeOfSorting, string sortBy, string Naziv, string Adresa, string DonjaGranica, string GornjaGranica)
         {
             Users users = (Users)Session["users"];
             
@@ -207,23 +207,23 @@ namespace FitnesCentar.Controllers
             else if (Option == "Find")
             {
                 int number = 0;
-                if (LowerLimit == "" && UpperLimit == "")
+                if (DonjaGranica == "" && GornjaGranica == "")
                 {
-                    if (Name == "" && Adress == "")
+                    if (Naziv == "" && Adresa == "")
                     {
                         ViewBag.FitnessCenters = users.FitnesCenterSorting("", "");
                     }
                     else
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
 
                 }
-                else if (LowerLimit != "" && UpperLimit == "")
+                else if (DonjaGranica != "" && GornjaGranica == "")
                 {
-                    if (Int32.TryParse(LowerLimit, out number))
+                    if (Int32.TryParse(DonjaGranica, out number))
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     else
                     {
@@ -231,11 +231,11 @@ namespace FitnesCentar.Controllers
                         MessageBox.Show("Morate uneti broj za DonjuGranicu");
                     }
                 }
-                else if (LowerLimit == "" && UpperLimit != "")
+                else if (DonjaGranica == "" && GornjaGranica != "")
                 {
-                    if (Int32.TryParse(UpperLimit, out number))
+                    if (Int32.TryParse(GornjaGranica, out number))
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     else
                     {
@@ -243,11 +243,11 @@ namespace FitnesCentar.Controllers
                         MessageBox.Show("Morate uneti broj za GornjuGranicu");
                     }
                 }
-                else if (LowerLimit != "" && UpperLimit != "")
+                else if (DonjaGranica != "" && GornjaGranica != "")
                 {
-                    if (Int32.TryParse(LowerLimit, out number) && Int32.TryParse(UpperLimit, out number) && LowerLimit != "")
+                    if (Int32.TryParse(DonjaGranica, out number) && Int32.TryParse(GornjaGranica, out number) && DonjaGranica != "")
                     {
-                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Name, Adress, LowerLimit, UpperLimit);
+                        ViewBag.FitnessCenters = users.FitnessCenterSearch(Naziv, Adresa, DonjaGranica, GornjaGranica);
                     }
                     else
                     {

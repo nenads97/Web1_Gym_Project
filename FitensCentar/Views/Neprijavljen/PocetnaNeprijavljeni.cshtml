@@ -61,20 +61,28 @@
             }
             else
             {   
-            <table class="main-table" border="1">
-                <tr><th colspan="4"><h3>Fitnes Centri</h3></th></tr>
+        <table class="main-table" border="1">
+            <thead>
                 <tr><th>Naziv</th><th>Adresa</th><th>DatumOtvaranja</th></tr>
-                @foreach(var fitnessCenter in ViewBag.FitnessCenters)
-                            {
-                                <tr><td>@fitnessCenter.Naziv</td><td>@fitnessCenter.Adresa</td><td>@fitnessCenter.DatumOtvaranja</td><td>
-                                    <form action="/Neprijavljen/DetaljanPrikaz" method="post">
-                                    <input type="submit" name="Detalji" value="Detalji">
-                                    <input type="hidden" name="Naziv" value="@fitnessCenter.Naziv">
-                                    </form>
-                                    </td>
-                                </tr>
-                            }
-            </table>
+            </thead>
+            @foreach (var fitnessCenter in ViewBag.FitnessCenters)
+            {
+                <tr>
+                    <td>@fitnessCenter.Naziv</td>
+                    <td>@fitnessCenter.Adresa</td>
+                    <td>@fitnessCenter.DatumOtvaranja</td>
+                    <td class="selec">
+                        <form action="/Neprijavljen/DetaljanPrikaz" method="post">
+                            <input class="button" type="submit" name="Detalji" value="Detalji">
+                            <input type="hidden" name="Naziv" value="@fitnessCenter.Naziv">
+                        </form>
+                    </td>
+                </tr>
+            }
+            <tfoot>
+                <tr><th colspan="4"><h3>Fitnes Centri</h3></th></tr>
+            </tfoot>
+        </table>
             }
         </div> 
     </main>

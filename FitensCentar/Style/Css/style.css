@@ -57,6 +57,7 @@ body {
     background-color: #202124;
     padding: 20px 0;
     position: relative;
+    width: 100%;
 
 }
 
@@ -79,7 +80,7 @@ body {
     float: left;
     font-size: 42px;
     line-height: 44px;
-    color: white;
+    color: #c78cdf;
     font-weight: 700;
 }
 
@@ -109,11 +110,11 @@ body {
     padding: 10px;
     border: none;
     margin-top: 2px;
-    width: 150px;
+    width: 155px;
 }
 
 .submit:hover {
-    background-color: #06b9e5;
+    background-color: #c78cdf;
     color: white;
 }
 
@@ -342,8 +343,29 @@ label {
 }
 
 .main-button:hover {
-  background-color: #06b9e5;
-  color: black
+  background-color: #c78cdf;
+  color: white
+}
+
+.nazad {
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+  display: block;
+  background-color: #01d4fd;
+  color: black;
+  padding: 10px;
+  border: none;
+  margin-top: 2px;
+  width: 150px;
+  float: right;
+  text-decoration: none;
+  text-align: center;
+}
+
+.nazad:hover {
+  background-color: #c78cdf;
+  color: white;
 }
 
 .main-naslov-pretraga {
@@ -365,6 +387,10 @@ label {
   width: 80%;
 }
 
+.input:focus {
+  background-color: #c78cdf;
+}
+
 .text {
   margin: 10px auto 0;
   text-align: center;
@@ -377,5 +403,22 @@ label {
   margin-bottom: 0;
 }
 
+.icon {
+  width: 50px;
+  height: 50px;
+  fill: #c78cdf;
+  margin-left: 5px;
+}
 
+.decoration {
+  color: #01d2fb;
+}
+
+.decoration2 {
+  color: yellow;
+}
+
+.decoration3 {
+  color: rgb(0, 255, 0);
+}
 

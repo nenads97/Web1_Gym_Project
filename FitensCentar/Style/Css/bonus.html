@@ -1,4 +1,4 @@
-﻿
+
 @{
     ViewBag.Title = "PocetnaNeprijavljeni";
 }
@@ -66,21 +66,29 @@
                     <div class="select">
                         <select name="sortBy" required>
                             <option value="Naziv"> Naziv</option>
-                            <option value="Adresa"> Adresa</option>
-                            <option value="DatumOtvaranja">Datum otvaranja</option>
+                            <option value="TypeOfTraining"> Tip treninga</option>
+                            <option value="DateOfMaintenance">Datum otvaranja</option>
                         </select>
                     </div>
+                    <input type="hidden" value="@ViewBag.user_name" name="Username" />
                     <input class="main-button" type="submit" name="Option" value="Sort" />
                 </div>
 
                 <div class="find">
-                    <h2 class="main-naslov-pretraga">Pretraga:</h2>
-                    <div class="text">Naziv:</div><input class="input" type="text" name="Naziv" value="" placeholder="Naziv" /><br />
-                    <div class="text">Adresa:</div><input class="input" type="text" name="Adresa" value="" placeholder="Ulica, Broj, Grad, Postanski broj" /><br />
-                    <div class="text">Datum otvaranja:</div><input class="input" type="text" name="GornjaGranica" placeholder="GornjaGranica" />
-                                                            <input class="input input-last" type="text" name="DonjaGranica" placeholder="DonjaGranica" /><br />
-                    <br />
-                    <input class="main-button" type="submit" name="Option" value="Find" />
+                    <div class="text">Naziv:</div><input class="input" type="text" name="Naziv" value="" /><br />
+                    <div class="text">Tip treninga:</div>
+                    <div class="select">
+                        <select name="TypeOfTraining">
+                            <option value=""></option>
+                            <option value="YOGA">YOGA</option>
+                            <option value="BODYPUMP">BODYPUMP</option>
+                            <option value="LESMILLSTONE">LESMILLSTONE</option>
+                        </select><br/>
+                        <div class="text">Datum otvaranja:</div>
+                        <input class="input" type="text" name="GornjaGranica" placeholder="GornjaGranica" />                                
+                        <input class="input input-last" type="text" name="DonjaGranica" placeholder="DonjaGranica" /><br />
+                        <input class="main-button" type="submit" name="Option" value="Find" />
+                    </div>
                 </div>
             </form>
             @if (ViewBag.FitnessCenters == null || ViewBag.FitnessCenters.Count == 0) {

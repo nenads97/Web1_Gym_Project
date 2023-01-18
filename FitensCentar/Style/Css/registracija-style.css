@@ -1,0 +1,211 @@
+@import url('reset.css');
+
+@font-face {
+    font-family: 'Lato';
+    src: url("../Fonts/Lato-Thin.woff2") format("woff2"), url("../Fonts/Lato-Thin.woff") format("woff");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+ }
+@font-face {
+    font-family: 'Lato';
+    src: url("../Fonts/Lato-Light.woff2") format("woff2"), url("../Fonts/Lato-Light.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap; 
+}
+@font-face {
+    font-family: 'Lato';
+    src: url("../Fonts/Lato-Regular.woff2") format("woff2"), url("../Fonts/Lato-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap; 
+}
+@font-face {
+    font-family: 'Lato';
+    src: url("../Fonts/Lato-Bold.woff2") format("woff2"), url("../Fonts/Lato-Bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap; 
+}
+@font-face {
+    font-family: 'Lato';
+    src: url("../Fonts/Lato-Black.woff2") format("woff2"), url("../Fonts/Lato-Black.woff") format("woff");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap; 
+}
+
+input,
+button {
+  font-family: 'lato', sans-serif; }
+
+body {
+    margin: 0;
+}
+
+.main {
+    background-image: url(../Images/reg.png);
+    height: 815px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 100%;
+    position: relative;
+}
+
+.naslov {
+    display: block;
+    float: left;
+    font-size: 42px;
+    line-height: 44px;
+    color: #c78cdf;
+    font-weight: 700;
+}
+
+.main-form {
+    width: 350px;
+    height: 400px;
+    display: block;
+    padding: 20px 0;
+}
+  
+.input {
+    border: 1px solid var(--select-border);
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    font-size: 1rem;
+    line-height: 1.1;
+    background-color: #fff;
+    margin: 10px 30px;
+    width: 80%;
+}
+
+.input:focus {
+    background-color: #c78cdf;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1360px;
+    padding: 0 20px;
+    /* ako dostigne max sirinu da se ne zalepi za ivice */
+    margin: 0 auto;
+    /* centriramo */ 
+}
+
+.header {
+    background-color: #202124;
+    padding: 20px 0;
+    position: relative;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    fill: #c78cdf;
+    margin-left: 5px;
+  }
+
+  .main-button {
+    display: block;
+    margin: 30px auto 0;
+    padding: 5px 100px;
+    color: black;
+    background-color: #06b9e5;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 0.25em;
+  }
+
+  .main-button:hover {
+    background-color: #c78cdf;
+    color: white;
+  }
+
+  .text {
+    margin: 0 auto 20px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.1;
+    color: black;
+  }
+
+  .form-control {
+    margin: 0 auto;
+    width: 29%;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.1;
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;
+    margin-bottom: 15px;
+  }
+
+  input[type="radio"] {
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    appearance: none;
+    /* For iOS < 15 to remove gradient background */
+    background-color: #fff;
+    /* Not removed via appearance */
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 50%;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+  }
+  
+  .form-control + .form-control {
+      margin-top: 1em;
+  }
+  
+  input[type="radio"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+    background-color: CanvasText;
+  }
+  
+  input[type="radio"]:checked::before {
+    transform: scale(1);
+  }
+  
+  input[type="radio"]:focus {
+    outline: max(2px, 0.15em) solid currentColor;
+    outline-offset: max(2px, 0.15em);
+  }
+  
+  .form-control:focus-within {
+    color: var(--form-control-color);
+  }
+
+  .nazad:hover {
+    background-color: #c78cdf;
+    color: white;
+}
+.nazad {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 400;
+    display: block;
+    background-color: #01d4fd;
+    color: black;
+    padding: 10px;
+    border: none;
+    margin-top: 2px;
+    width: 150px;
+    float: right;
+    text-decoration: none;
+    text-align: center;
+}

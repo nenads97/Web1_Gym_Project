@@ -91,7 +91,7 @@
             </form>
             <br />
             <br />
-            <h2 class="main-naslov-tabele">Lista mojih buducih treninga</h2>
+            <h2>Lista mojih buducih treninga</h2>
             @if (ViewBag.GroupTrainings == null || ViewBag.GroupTrainings.Count == 0)
             {
                 <p>@ViewBag.user_name nema nijedan predstojeci grupni training</p>
@@ -104,7 +104,7 @@
                     DateTime.TryParse(groupTraining.TrainingDate, out dt);
                     if (dt > DateTime.Now)
                     {
-                        <form class="main-form" action="/Trainer/PredstojeciTreninziTrener" method="post">
+                        <form action="/Trainer/PredstojeciTreninziTrener" method="post">
                             <table class="main-table">
                                 <tr><td class="text">Naziv:</td><td>@groupTraining.Naziv</td></tr>
                                 <tr>
@@ -163,7 +163,7 @@
                                 <tr><td class="text">Datum Treniranja</td><td><input class="input" type="text" name="TrainingDate" value="@groupTraining.TrainingDate" placeholder="yyyy/MM/DD HH:mm" /></td></tr>
                                 <tr><td class="text">Maksimalan Broj Posetilaca</td><td><input class="input" type="number" name="MaximumNumberOfVisitors" value="@groupTraining.MaximumNumberOfVisitors" /></td></tr>
                                 <tr>
-                                    <td class="text">Lista Prijavljenih korisnika:</td>
+                                    <td class="text">ListOfSingedUpUsers:</td>
 
                                     @if (ViewBag.Posetioci == null || ViewBag.Posetioci.Count == 0)
                                     {
@@ -185,6 +185,8 @@
 
                                     }
                                 </tr>
+                            </table>
+                            <table>
                                 <tr>
                                     <td>
                                         <input class="submit" type="submit" name="Option" value="Obrisi" />

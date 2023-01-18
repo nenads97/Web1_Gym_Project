@@ -4,6 +4,7 @@
 }
 <head>
     <link rel="stylesheet" href="../../Style/Css/style.css">
+    <link rel="stylesheet" href="../../Style/Css/style2.css">
 </head>
 <body>
     <header class="header">
@@ -29,41 +30,47 @@
     <main class="main">   
         <div class="wrapper"> 
             <form class="main-form" method="post" action="/Neprijavljen/PocetnaNeprijavljeni">
-                <div class="main-naslov">Sortiranje:</div>
+                <div class="sort">
+                    <h2 class="main-naslov">Sortiranje:</h2>
                     <label class="form-control">
                         <input type="radio" name="typeOfSorting" id="rastuce" value="Rastuće" />
                         Rastuće
-                    </label>                    
+                    </label>
 
                     <label class="form-control">
                         <input type="radio" name="typeOfSorting" id="opadajuce" value="Opadajuće" />
                         Opadajuće
                     </label>
 
-                <div class="select">
-                    <select name="sortBy" required>
-                        <option value="Naziv"> Naziv</option>
-                        <option value="Adresa"> Adresa</option>
-                        <option value="DatumOtvaranja">Datum otvaranja</option>
-                    </select>
+                    <div class="select">
+                        <select name="sortBy" required>
+                            <option value="Naziv"> Naziv</option>
+                            <option value="Adresa"> Adresa</option>
+                            <option value="DatumOtvaranja">Datum otvaranja</option>
+                        </select>
+                    </div>
+                    <input class="main-button" type="submit" name="Option" value="Sort" />
                 </div>
-                <br />
-                <input type="submit" name="Option" value="Sort" />
 
-                <div>Naziv:</div><input type="text" name="Naziv" value="" placeholder="Naziv" /><br />
-                <div>Adresa:</div><input type="text" name="Adresa" value="" placeholder="Ulica, Broj, Grad, Postanski broj" /><br />
-                <div>Datum otvaranja:</div><input type="text" name="DonjaGranica" placeholder="DonjaGranica" /><input type="text" name="GornjaGranica" placeholder="GornjaGranica" /><br />
-                <br />
-                <input type="submit" name="Option" value="Find" />
+                <div class="find">
+                    <h2 class="main-naslov-pretraga">Pretraga:</h2>
+                    <div class="text">Naziv:</div><input class="input" type="text" name="Naziv" value="" placeholder="Naziv" /><br />
+                    <div class="text">Adresa:</div><input class="input" type="text" name="Adresa" value="" placeholder="Ulica, Broj, Grad, Postanski broj" /><br />
+                    <div class="text">Datum otvaranja:</div><input class="input" type="text" name="GornjaGranica" placeholder="GornjaGranica" />
+                                                            <input class="input input-last" type="text" name="DonjaGranica" placeholder="DonjaGranica" /><br />
+                    <br />
+                    <input class="main-button" type="submit" name="Option" value="Find" />
+                </div>
             </form>
             @if (ViewBag.FitnessCenters == null || ViewBag.FitnessCenters.Count == 0) {
                 <p>Ne postoji nijedan fitnes centar</p>
             }
             else
             {   
-        <table class="main-table" border="1">
+        <h2 class="main-naslov-tabele">Fitnes Centri</h2>
+        <table class="main-table">
             <thead>
-                <tr><th>Naziv</th><th>Adresa</th><th>DatumOtvaranja</th></tr>
+                <tr><th>Naziv</th><th>Adresa</th><th>DatumOtvaranja</th><th></th></tr>
             </thead>
             @foreach (var fitnessCenter in ViewBag.FitnessCenters)
             {
@@ -78,10 +85,7 @@
                         </form>
                     </td>
                 </tr>
-            }
-            <tfoot>
-                <tr><th colspan="4"><h3>Fitnes Centri</h3></th></tr>
-            </tfoot>
+            } 
         </table>
             }
         </div> 

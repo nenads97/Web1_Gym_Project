@@ -16,7 +16,11 @@
         }
 
         .main-table {
-            width:24%;
+            width:100%;
+        }
+        
+        .multiple-tables {
+            flex-direction: row;
         }
     </style>
 </head>
@@ -78,7 +82,7 @@
                         <select name="sortBy" required>
                             <option value="Naziv"> Naziv</option>
                             <option value="TypeOfTraining"> Tip treninga</option>
-                            <option value="DateOfMaintenance">Datum otvaranja</option>
+                            <option value="DateOfMaintenance">Datum održavanja</option>
                         </select>
                     </div>
                     <input type="hidden" value="@ViewBag.user_name" name="Username" />
@@ -87,15 +91,16 @@
 
 
                 <div class="find">
-                    <div class="text">Naziv:</div><input class="input" type="text" name="Naziv" value="" placeholder="Naziv"/><br />
-                    <div class="text">Tip treninga:</div><br/>
+                    <div class="text">Naziv:</div><input class="input" type="text" name="Naziv" value="" placeholder="Naziv" /><br />
+                    <div class="text">Tip treninga:</div><br />
                     <div class="select">
                         <select name="TypeOfTraining">
+                            <option value=""></option>
                             <option value="YOGA">YOGA</option>
                             <option value="BODYPUMP">BODYPUMP</option>
                             <option value="LESMILLSTONE">LESMILLSTONE</option>
                         </select><br />
-                        <div class="text">Datum otvaranja:</div>
+                        <div class="text">Datum održavanja:</div>
                         <input class="input" type="text" name="GornjaGranica" placeholder="GornjaGranica" />
                         <input class="input input-last" type="text" name="DonjaGranica" placeholder="DonjaGranica" /><br />
                         <input class="main-button" type="submit" name="Option" value="Find" />
@@ -104,35 +109,37 @@
 
             </form>
 
-            @if (ViewBag.GroupTrainings.Count > 0)
-            {
-                int x = 0;
-                foreach (var t in ViewBag.GroupTrainings)
+            <div class="multiple-tables">
+                @if (ViewBag.GroupTrainings.Count > 0)
                 {
-                    DateTime dt;
-                    DateTime.TryParse(t.TrainingDate, out dt);
-                    if (dt < DateTime.Now)
+                    int x = 0;
+                    foreach (var t in ViewBag.GroupTrainings)
                     {
-                        <table class="main-table" >
-                            <tr><td class="text">Naziv:</td><td>@t.Naziv</td></tr>
-                            <tr><td class="text">Tip Treninga:</td><td>@t.Trening</td></tr>
-                            <tr><td class="text">Fitnes Centar:</td><td>@t.FitnessCenterName</td></tr>
-                            <tr><td class="text">Trajanje treninga:</td><td>@t.TrainingDuration</td></tr>
-                            <tr><td class="text">Datum Treninga:</td><td>@t.TrainingDate</td></tr>
-                            <tr><td class="text">Broj Posetilaca:</td><td>@t.MaximumNumberOfVisitors</td></tr>
-                        </table>
-                        <br />
-                        x++;
-                    }
+                        DateTime dt;
+                        DateTime.TryParse(t.TrainingDate, out dt);
+                        if (dt < DateTime.Now)
+                        {
+                            <table class="main-table">
+                                <tr><td class="text">Naziv:</td><td>@t.Naziv</td></tr>
+                                <tr><td class="text">Tip Treninga:</td><td>@t.Trening</td></tr>
+                                <tr><td class="text">Fitnes Centar:</td><td>@t.FitnessCenterName</td></tr>
+                                <tr><td class="text">Trajanje treninga:</td><td>@t.TrainingDuration</td></tr>
+                                <tr><td class="text">Datum Treninga:</td><td>@t.TrainingDate</td></tr>
+                                <tr><td class="text">Broj Posetilaca:</td><td>@t.MaximumNumberOfVisitors</td></tr>
+                            </table>
+                            <br />
+                            x++;
+                        }
 
+                    }
+                    if (x == 0)
+                    {
+                        <p class="text-white">@ViewBag.user_name nema nijedan odradjen training</p>
+                    }
                 }
-                if (x == 0)
-                {
-                    <p class="text">@ViewBag.user_name nema nijedan odradjen training</p>
-                }
-            }
-            else
-            { <p class="text">@ViewBag.user_name nema nijedan odradjen training</p>}
+                else
+                { <p class="text-white">@ViewBag.user_name nema nijedan odradjen training</p>}
+            </div>
         </div>
     </main>
 </body>

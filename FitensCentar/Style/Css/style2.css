@@ -77,7 +77,32 @@
   background-color: #c78cdf;
   color: black;
 }
-  
+
+.multiple-tables {
+  background-color: #2C3845;
+  min-height: 200px;
+  display: inline-flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.text-white {
+  color: white;
+}
+
+.multiple-tables-veci {
+  width: 560px;
+}
   
 
-  
+.icon-logout {
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  top: 22px;
+  right: 20px;
+}  
+
+.icon-logout:hover {
+  filter: invert(26%) sepia(99%) saturate(7393%) hue-rotate(357deg) brightness(101%) contrast(115%);
+}

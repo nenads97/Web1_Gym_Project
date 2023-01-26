@@ -5,6 +5,12 @@
 <head>
     <link rel="stylesheet" href="../../Style/Css/style.css">
     <link rel="stylesheet" href="../../Style/Css/veca-tabela-style.css">
+
+    <style>
+        .main {
+            min-height: 1000px;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -42,6 +48,8 @@
             </thead>
             <tr><td>@ViewBag.FitnessCenter.Naziv</td><td>@ViewBag.FitnessCenter.Adresa</td><td>@ViewBag.FitnessCenter.DatumOtvaranja</td><td>@ViewBag.FitnessCenter.AdminUsername</td><td>@ViewBag.FitnessCenter.MonthlySubscription</td><td>@ViewBag.FitnessCenter.YearlySubscription</td><td>@ViewBag.FitnessCenter.PriceOfOneTraining</td><td>@ViewBag.FitnessCenter.GroupTrainingPrice</td><td>@ViewBag.FitnessCenter.PersonalTrainerPrice</td></tr>
         </table>
+
+        <p class="komentar-naslov">Grupni treninzi:</p>
         @if (ViewBag.GroupTrainings == null || ViewBag.GroupTrainings.Count == 0)
         {
             <p class="text">@ViewBag.FitnessCenter.Naziv nema nijedan grupni training</p>
@@ -54,13 +62,13 @@
                 DateTime.TryParse(groupTraining.TrainingDate, out dt);
                 if (dt > DateTime.Now)
                 {
-                    <table>
-                        <tr><td>Naziv:</td><td>@groupTraining.Naziv</td></tr>
-                        <tr><td>TypeOfTraining:</td><td>@groupTraining.Trening</td></tr>
-                        <tr><td>FitnessCenter:</td><td>@groupTraining.FitnessCenterName</td></tr>
-                        <tr><td>TrainingDuration</td><td>@groupTraining.TrainingDuration</td></tr>
-                        <tr><td>TrainingDate</td><td>@groupTraining.TrainingDate</td></tr>
-                        <tr><td>MaximumNumberOfVisitors</td><td>@groupTraining.MaximumNumberOfVisitors</td></tr>
+                    <table class="main-table">
+                        <tr><td class="text">Naziv:</td><td>@groupTraining.Naziv</td></tr>
+                        <tr><td class="text">TypeOfTraining:</td><td>@groupTraining.Trening</td></tr>
+                        <tr><td class="text">FitnessCenter:</td><td>@groupTraining.FitnessCenterName</td></tr>
+                        <tr><td class="text">TrainingDuration</td><td>@groupTraining.TrainingDuration</td></tr>
+                        <tr><td class="text">TrainingDate</td><td>@groupTraining.TrainingDate</td></tr>
+                        <tr><td class="text">MaximumNumberOfVisitors</td><td>@groupTraining.MaximumNumberOfVisitors</td></tr>
                     </table>
                 }
 

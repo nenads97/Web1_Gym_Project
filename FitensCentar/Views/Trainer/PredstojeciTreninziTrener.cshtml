@@ -3,6 +3,7 @@
     ViewBag.Title = "PredstojeciTreninziTrener";
 }
 <head>
+    <link rel="stylesheet" href="../../Style/Css/style2.css">
     <link rel="stylesheet" href="../../Style/Css/style.css">
     <link rel="stylesheet" href="../../Style/Css/veca-tabela-style.css">
 
@@ -22,6 +23,14 @@
 
         .input2 {
             width: 35%;
+        }
+
+        .multiple-tables {
+            width: 560px
+        }
+
+        .main {
+            height: max-content;
         }
     </style>
 </head>
@@ -91,117 +100,120 @@
             </form>
             <br />
             <br />
-            <h2>Lista mojih buducih treninga</h2>
-            @if (ViewBag.GroupTrainings == null || ViewBag.GroupTrainings.Count == 0)
-            {
-                <p>@ViewBag.user_name nema nijedan predstojeci grupni training</p>
-            }
-            else
-            {
-                foreach (var groupTraining in ViewBag.GroupTrainings)
+            <p class="komentar-naslov">Lista mojih buducih treninga:</p>
+            <br />
+            <div class="multiple-tables multiple-tables-veci">
+                @if (ViewBag.GroupTrainings == null || ViewBag.GroupTrainings.Count == 0)
                 {
-                    DateTime dt;
-                    DateTime.TryParse(groupTraining.TrainingDate, out dt);
-                    if (dt > DateTime.Now)
-                    {
-                        <form action="/Trainer/PredstojeciTreninziTrener" method="post">
-                            <table class="main-table">
-                                <tr><td class="text">Naziv:</td><td>@groupTraining.Naziv</td></tr>
-                                <tr>
-                                    <td class="text">Tip Treninga:</td>
-                                    <td>
-                                        <select class="select" name="Trening">
-                                            @if (groupTraining.Trening.ToString() == "YOGA")
-                                            {
-                                                <option value="YOGA" selected>YOGA</option>
-                                                <option value="BODYPUMP">BODYPUMP</option>
-                                                <option value="LESMILLSTONE">LESMILLSTONE</option>
-                                            }
-                                            else if (groupTraining.Trening.ToString() == "BODYPUMP")
-                                            {
-                                                <option value="YOGA">YOGA</option>
-                                                <option value="BODYPUMP" selected>BODYPUMP</option>
-                                                <option value="LESMILLSTONE">LESMILLSTONE</option>
-                                            }
-                                            else if (groupTraining.Trening.ToString() == "LESMILLSTONE")
-                                            {
-                                                <option value="YOGA">YOGA</option>
-                                                <option value="BODYPUMP">BODYPUMP</option>
-                                                <option value="LESMILLSTONE" selected>LESMILLSTONE</option>
-                                            }
-
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr><td class="text">Fitnes Centar:</td><td>@groupTraining.FitnessCenterName</td></tr>
-                                <tr>
-                                    <td class="text">Trajanje Treninga</td>
-                                    <td>
-                                        <select class="select" name="TrainingDuration">
-                                            @if (groupTraining.TrainingDuration == "30min")
-                                            {
-                                                <option value="30min" selected>30min</option>
-                                                <option value="45min">45min</option>
-                                                <option value="60min">60min</option>
-                                            }
-                                            else if (groupTraining.TrainingDuration == "45min")
-                                            {
-                                                <option value="30min">30min</option>
-                                                <option value="45min" selected>45min</option>
-                                                <option value="60min">60min</option>
-                                            }
-                                            else if (groupTraining.TrainingDuration == "60min")
-                                            {
-                                                <option value="30min">30min</option>
-                                                <option value="45min">45min</option>
-                                                <option value="60min" selected>60min</option>
-                                            }
-
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr><td class="text">Datum Treniranja</td><td><input class="input" type="text" name="TrainingDate" value="@groupTraining.TrainingDate" placeholder="yyyy/MM/DD HH:mm" /></td></tr>
-                                <tr><td class="text">Maksimalan Broj Posetilaca</td><td><input class="input" type="number" name="MaximumNumberOfVisitors" value="@groupTraining.MaximumNumberOfVisitors" /></td></tr>
-                                <tr>
-                                    <td class="text">ListOfSingedUpUsers:</td>
-
-                                    @if (ViewBag.Posetioci == null || ViewBag.Posetioci.Count == 0)
-                                    {
-                                        <td>Nema posetilaca</td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                            <ol>
-                                                @if (ViewBag.Posetioci.ContainsKey(groupTraining.Naziv))
-                                                {
-                                                    foreach (var s in ViewBag.Posetioci[groupTraining.Naziv])
-                                                    {
-                                                        <li>@s</li>
-                                                    }
-                                                }
-                                            </ol>
-                                        </td>
-
-                                    }
-                                </tr>
-                            </table>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <input class="submit" type="submit" name="Option" value="Obrisi" />
-                                        <input class="submit" type="submit" name="Option" value="Izmeni" />
-                                        <input class="input" type="hidden" name="Naziv" value="@groupTraining.Naziv" />
-                                        <input class="input" type="hidden" name="FitnessCenterName" value="@groupTraining.FitnessCenterName" />
-                                        <input class="input" type="hidden" name="Username" value="@ViewBag.user_name" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </form>
-                    }
-
+                    <p class="text text-white">@ViewBag.user_name nema nijedan predstojeci grupni training</p>
                 }
-            }
+                else
+                {
+                    foreach (var groupTraining in ViewBag.GroupTrainings)
+                    {
+                        DateTime dt;
+                        DateTime.TryParse(groupTraining.TrainingDate, out dt);
+                        if (dt > DateTime.Now)
+                        {
+                            <form action="/Trainer/PredstojeciTreninziTrener" method="post">
+                                <table class="main-table">
+                                    <tr><td class="text">Naziv:</td><td>@groupTraining.Naziv</td></tr>
+                                    <tr>
+                                        <td class="text">Tip Treninga:</td>
+                                        <td>
+                                            <select class="select" name="Trening">
+                                                @if (groupTraining.Trening.ToString() == "YOGA")
+                                                {
+                                                    <option value="YOGA" selected>YOGA</option>
+                                                    <option value="BODYPUMP">BODYPUMP</option>
+                                                    <option value="LESMILLSTONE">LESMILLSTONE</option>
+                                                }
+                                                else if (groupTraining.Trening.ToString() == "BODYPUMP")
+                                                {
+                                                    <option value="YOGA">YOGA</option>
+                                                    <option value="BODYPUMP" selected>BODYPUMP</option>
+                                                    <option value="LESMILLSTONE">LESMILLSTONE</option>
+                                                }
+                                                else if (groupTraining.Trening.ToString() == "LESMILLSTONE")
+                                                {
+                                                    <option value="YOGA">YOGA</option>
+                                                    <option value="BODYPUMP">BODYPUMP</option>
+                                                    <option value="LESMILLSTONE" selected>LESMILLSTONE</option>
+                                                }
+
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr><td class="text">Fitnes Centar:</td><td>@groupTraining.FitnessCenterName</td></tr>
+                                    <tr>
+                                        <td class="text">Trajanje Treninga</td>
+                                        <td>
+                                            <select class="select" name="TrainingDuration">
+                                                @if (groupTraining.TrainingDuration == "30min")
+                                                {
+                                                    <option value="30min" selected>30min</option>
+                                                    <option value="45min">45min</option>
+                                                    <option value="60min">60min</option>
+                                                }
+                                                else if (groupTraining.TrainingDuration == "45min")
+                                                {
+                                                    <option value="30min">30min</option>
+                                                    <option value="45min" selected>45min</option>
+                                                    <option value="60min">60min</option>
+                                                }
+                                                else if (groupTraining.TrainingDuration == "60min")
+                                                {
+                                                    <option value="30min">30min</option>
+                                                    <option value="45min">45min</option>
+                                                    <option value="60min" selected>60min</option>
+                                                }
+
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr><td class="text">Datum Treniranja</td><td><input class="input" type="text" name="TrainingDate" value="@groupTraining.TrainingDate" placeholder="yyyy/MM/DD HH:mm" /></td></tr>
+                                    <tr><td class="text">Maksimalan Broj Posetilaca</td><td><input class="input" type="number" name="MaximumNumberOfVisitors" value="@groupTraining.MaximumNumberOfVisitors" /></td></tr>
+                                    <tr>
+                                        <td class="text">Lista Prijavljenih Posetilaca:</td>
+
+                                        @if (ViewBag.Posetioci == null || ViewBag.Posetioci.Count == 0)
+                                        {
+                                            <td>Nema posetilaca</td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <ol>
+                                                    @if (ViewBag.Posetioci.ContainsKey(groupTraining.Naziv))
+                                                    {
+                                                        foreach (var s in ViewBag.Posetioci[groupTraining.Naziv])
+                                                        {
+                                                            <li>@s</li>
+                                                        }
+                                                    }
+                                                </ol>
+                                            </td>
+
+                                        }
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input class="submit submit-inline" type="submit" name="Option" value="Obrisi" />
+                                            <input class="submit submit-inline" type="submit" name="Option" value="Izmeni" />
+                                            <input class="input" type="hidden" name="Naziv" value="@groupTraining.Naziv" />
+                                            <input class="input" type="hidden" name="FitnessCenterName" value="@groupTraining.FitnessCenterName" />
+                                            <input class="input" type="hidden" name="Username" value="@ViewBag.user_name" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        }
+
+                    }
+                }
+            </div>
         </div>
     </main>
 </body>

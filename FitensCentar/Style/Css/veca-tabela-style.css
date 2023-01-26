@@ -97,7 +97,7 @@ thead {
     display: block;
     float: left;
     width: 25%;
-    margin: 0 15px;
+    margin:15px;
 }
 
 .komentar-naslov {
@@ -109,7 +109,7 @@ thead {
     background-color: #06b9e5;
     text-align: center;
     width: 100%;
-    margin: 50px auto;
+    margin: 50px 50px 10px auto;
     border: 2px solid black;
 
 }
@@ -132,14 +132,73 @@ thead {
 .komentari-tr {
     border: 2px solid black;
 }
+
+.ostavljen-komentar {
+  width: 99%;
+  float: none;
+}
+
+.k-naslov {
+  display: block;
+    font-size: 20px;
+    line-height: 30px;
+    color: black;
+    font-weight: 400;
+    background-color: #06b9e5;
+    text-align: center;
+    width: 25%;
+    margin: 25px auto;
+    border: 2px solid black;
+}
+
+.text-area {
+  width: 25%;
+  height: 150px;
+  margin: 20px auto;
+  display: block;
+  font-size: 16px;
+  line-height: 18px;
+  padding: 10px;
+  background-color: #2C3845;
+  color: white;
+  font-weight: 400;
+}
+.div-ocena {
+  margin: 0 auto;
+  width: 25%;
+  display: block;
+}
+
+.ocena {
+  width: 40px;
+  height: 40px;
+  background-color: #2C3845;
+  color: white;
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.ocena-naslov {
+  display: inline-block;
+  font-size: 20px;
+  line-height: 20px;
+  background-color: #06b9e5;
+  border: 2px solid black;
+  padding: 8px;
+}
+
+.ocena-dugme {
+  border: 2px solid black;
+  margin: 0;
+}
   
 .main {
     background-image: url(../Images/pozadina.png);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 0 80%;
     position: relative;
-    height: 663px;
 }  
 
   

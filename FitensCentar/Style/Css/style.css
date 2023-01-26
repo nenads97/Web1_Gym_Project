@@ -118,6 +118,10 @@ body {
     color: white;
 }
 
+.submit-inline {
+  display: inline-block;
+}
+
 .main-naslov {
     font-size: 26px;
     line-height: 28px;
